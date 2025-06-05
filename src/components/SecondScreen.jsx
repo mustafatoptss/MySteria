@@ -1,0 +1,94 @@
+import React from 'react';
+import img from '../images/Screen2background.png';
+import left from '../images/leftphoto.png';
+
+function SecondScreen() {
+  return (
+    <div className="flex flex-col h-screen bg-gradient-to-r from-black to-gray-800">
+      {/* ÜST: Sol ve sağ bölümler */}
+      <div className="flex h-[700px]">
+        {/* Sol üst - Oyun açıklaması */}
+        <div className="w-1/2 flex items-center justify-center bg-gradient-to-r from-black to-[#111111] px-12">
+          <div className="text-white">
+            <h1 className="text-center text-5xl font-bold mb-8 tracking-wider">DEDEKTİF OYUNU</h1>
+            <p className="text-center text-3xl opacity-90">Zekanızı test edin, suçluları yakalayın!</p>
+          </div>
+        </div>
+
+        {/* Sağ - Fotoğraf üzerine metinler */}
+        <div
+          className="w-1/2 relative bg-cover bg-no-repeat bg-center"
+          style={{
+            backgroundImage: `url(${img})`,
+            height: '100vh',
+          }}
+        >
+          {/* Yarı şeffaf overlay */}
+          <div className="absolute inset-0 bg-black opacity-20"></div>
+          
+          {/* Ortalanmış içerik */}
+          <div className="relative h-full flex flex-col items-center justify-center text-white p-10">
+            <div className="max-w-2xl space-y-12 text-center">
+              
+              {/* Madde 1 */}
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-6">🕵️</div>
+                <h2 className="text-4xl font-bold mb-4">EKİBİNİ KUR, HAZIRLIK YAP</h2>
+                <p className="text-2xl leading-relaxed">
+                  En kısa sürede davayı kapatmak için seçkin bir ekip kurun, 
+                  uygun bir mekanda ve karakterinize uygun şekilde giyinerek hazırlanın.
+                </p>
+              </div>
+
+              {/* Madde 2 */}
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-6">📜</div>
+                <h2 className="text-4xl font-bold mb-4">SENARYOYU SEÇ</h2>
+                <p className="text-2xl leading-relaxed">
+                  Birbirinden benzersiz, heyecanlı ve gerilimli davalar sizi bekliyor. 
+                  İster tek başınıza, ister ekibinizle zamana karşı yarışın.
+                </p>
+              </div>
+
+              {/* Madde 3 */}
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-6">🔍</div>
+                <h2 className="text-4xl font-bold mb-4">DAVA DOSYALARINI İNCELE</h2>
+                <p className="text-2xl leading-relaxed">
+                  Çözülemeyen sırlar, şifreler ve ipuçları. Tüm dosyalar PDF olarak sizde. 
+                  Hiçbir detayı atlamadan araştırma yapın.
+                </p>
+              </div>
+
+              {/* Madde 4 */}
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-6">⚖️</div>
+                <h2 className="text-4xl font-bold mb-4">KATİLİ BUL!</h2>
+                <p className="text-2xl leading-relaxed">
+                  "Ne? Nerede? Ne zaman? Neden? Nasıl? ve Kim?" sorularını yanıtlayarak 
+                  adaletin yerini bulmasını sağlayın.
+                </p>
+              </div>
+
+              {/* Çağrı cümlesi */}
+              <div className="pt-10">
+                <p className="text-4xl italic font-bold tracking-wider">GERÇEK DEDEKTİF SİZ MİSİNİZ?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ALT: Sol taraftaki boş alan */}
+      <div
+        className="w-1/2 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${left})`,
+          height: 'calc(100vh - 700px)',
+        }}
+      />
+    </div>
+  );
+}
+
+export default SecondScreen;

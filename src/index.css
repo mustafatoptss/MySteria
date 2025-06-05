@@ -1,0 +1,13 @@
+@import "tailwindcss";
+* {
+  font-family: 'Bebas Neue', sans-serif;
+}
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}body {
+  background-color: #1a1a1a; /* istediğin sabit renk */
+  margin: 0;
+  height: 100%;
+  color: wheat;
+}
