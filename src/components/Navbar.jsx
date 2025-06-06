@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import navbarlogo from '../images/navbar-logo2.png'
 import {
   AppBar,
   Toolbar,
@@ -99,7 +100,7 @@ function Navbar() {
                 padding: "4px"
               }}
             >
-              MySteria
+             MySteria
             </Typography>
           </div>
 
@@ -144,6 +145,11 @@ function Navbar() {
 
             <Button sx={buttonStyle} component={Link} to="/iletisim">
               İletişim
+            </Button>
+
+
+              <Button sx={buttonStyle} component={Link} to="/howtoplay">
+             Nasıl Oynanır ?
             </Button>
           </div>
         </Toolbar>

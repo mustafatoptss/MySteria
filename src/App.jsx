@@ -8,6 +8,8 @@ import Contact from './pages/Contanct';
 import BizKimiz from './pages/BizKimiz';
 import Vizyon from './pages/Vizyon';
 import Ekibimiz from './pages/Ekibimiz';
+import HowToPlay from './pages/HowToPlay';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
         <Route path="/hakkimizda/biz-kimiz" element={<BizKimiz />} />
         <Route path="/hakkimizda/vizyon" element={<Vizyon />} />
         <Route path="/hakkimizda/ekibimiz" element={<Ekibimiz />} />
+        <Route path="/howtoplay" element={<HowToPlay />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

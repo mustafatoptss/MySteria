@@ -2,7 +2,11 @@ import React from 'react'
 
 function BizKimiz() {
   return (
-    <div>BizKimiz</div>
+    <div>
+   <div>
+    bizkwasdasdasd
+   </div>
+    </div>
   )
 }
 
