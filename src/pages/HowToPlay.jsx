@@ -1,8 +1,11 @@
 import React from 'react'
 import bg from '../images/bg-3.jpeg'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 function HowToPlay() {
+  const navigate = useNavigate();
+
   return (
     <div
       className="relative h-screen w-full bg-cover bg-center flex items-center justify-center"
@@ -32,14 +35,24 @@ function HowToPlay() {
             İster tek başına ya da ekibinle birlikte zamana karşı oynayarak katili en kısa sürede bulmaya çalışabilir, istersen de senin ve arkadaşlarının şüpheliler arasında bulunduğu senaryoda (çok yakında gelecek) yaşanan olayların arkasındaki gizemi çözen ve katili bulan ilk kişi olmaya çalışabilirsin.
           </p>
           <p className="mb-6 text-2xl">
-            5N1Katil dedektiflik oyununu oynamak için gereken her şeyi PDF formatında sana sunuyoruz. Gerekli tüm belgeleri yazdırarak evde veya her neredeysen bulunduğun yeri bir soruşturma ofisine çevirebilirsin.
+            MySteria dedektiflik oyununu oynamak için gereken her şeyi PDF formatında sana sunuyoruz. Gerekli tüm belgeleri yazdırarak evde veya her neredeysen bulunduğun yeri bir soruşturma ofisine çevirebilirsin.
           </p>
           <p className="mb-6 text-2xl">
             Eğer yazdırma imkanın yoksa tüm içerikleri PDF formatında indirip dijital olarak da oynayabilirsin.
           </p>
           <p className='text-2xl'>
-            Başlamaya hazır olduğunda sana teslim edilen dosyayı detaylıca incelemeli ve ipuçlarını çözmelisin. Kendini hazır hissettiğinde, ilgili senaryoya ait sayfanın altındaki 5N1Katil sorularını cevaplayarak vakayı çözmeyi deneyebilirsin.
+            Başlamaya hazır olduğunda sana teslim edilen dosyayı detaylıca incelemeli ve ipuçlarını çözmelisin. Kendini hazır hissettiğinde, ilgili senaryoya ait sayfanın altındaki MySteria sorularını cevaplayarak vakayı çözmeyi deneyebilirsin.
           </p>
+
+          {/* Buton */}
+          <div className='mt-12 flex justify-center'>
+            <button
+              onClick={() => navigate('/game')}
+              className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-8 py-3 rounded-lg transition duration-300"
+            >
+              Oyuna Başla
+            </button>
+          </div>
         </motion.div>
       </div>
     </div>

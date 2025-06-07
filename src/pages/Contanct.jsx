@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 function Contanct() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12 bg-[#1a1a1a]">
+    <div className="min-h-screen flex  items-center justify-center px-4 py-12 bg-[#1a1a1a]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}

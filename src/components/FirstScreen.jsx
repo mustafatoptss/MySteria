@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './FirstScreen.css';
 import spotifyLogo from '../images/spotify.png';
 import instagramLogo from '../images/instagram.png';
 
 function FirstScreen() {
+  const navigate = useNavigate();
   return (
     <div className="firstscreen-background">
       <div className="header-overlay">
@@ -27,7 +28,7 @@ function FirstScreen() {
         En büyük <br />
         gizemleri çözen<br />
         seçkin ekip; <br />
-        5N1Katil Dedektifleri
+        MySteria dedektifleri
       </div>
       <div>
         <p className='ml-15 text-amber-50 text-2xl mb-10'>Faili meçhul davaları kapatmak için geliyoruz...</p>
@@ -36,6 +37,9 @@ function FirstScreen() {
           Ipsum quaerat eum beatae, commodi cupiditate odio <br />
           nemo consectetur labore nisi asperiores?
         </p>
+      </div>
+      <div className='playbtn'>
+      <button onClick={()=>navigate('/game')}>Davalar</button>
       </div>
     </div>
   );

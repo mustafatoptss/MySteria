@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import navbarlogo from '../images/navbar-logo2.png'
 import {
   AppBar,
   Toolbar,
@@ -100,7 +99,7 @@ function Navbar() {
                 padding: "4px"
               }}
             >
-             MySteria
+              MySteria
             </Typography>
           </div>
 
@@ -127,7 +126,7 @@ function Navbar() {
               onClose={handleMenuClose}
               PaperProps={{
                 sx: {
-                  backgroundColor: '#222', // koyu arka plan
+                  backgroundColor: '#222',
                   color: 'white',
                 },
               }}
@@ -147,9 +146,8 @@ function Navbar() {
               İletişim
             </Button>
 
-
-              <Button sx={buttonStyle} component={Link} to="/howtoplay">
-             Nasıl Oynanır ?
+            <Button sx={buttonStyle} component={Link} to="/howtoplay">
+              Nasıl Oynanır ?
             </Button>
           </div>
         </Toolbar>

@@ -1,4 +1,6 @@
 import React from 'react';
+import Button from '@mui/material/Button';
+import GoogleIcon from '@mui/icons-material/Google';
 
 function RegisterPage() {
   return (
@@ -66,6 +68,33 @@ function RegisterPage() {
             Kayıt Ol
           </button>
         </form>
+
+        {/* Ya da Google ile giriş yap */}
+        <div className="mt-8 flex flex-col items-center gap-4">
+          <p className="text-gray-400">Ya da</p>
+
+          <Button
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            onClick={() => alert('Google ile Giriş İşlemi')}
+            sx={{
+              color: 'white',
+              borderColor: '#fff',
+              textTransform: 'none',
+              px: 4,
+              py: 1.5,
+              width: '100%',
+              maxWidth: '300px',
+              '&:hover': {
+                borderColor: '#ffb800',
+                backgroundColor: '#ffb800',
+                color: '#000',
+              },
+            }}
+          >
+            Google ile Giriş Yap
+          </Button>
+        </div>
 
         <p className="mt-6 text-center text-gray-400">
           Hesabın var mı?{' '}

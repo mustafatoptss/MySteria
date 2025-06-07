@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+@tailwind utilities;
 * {
   font-family: 'Bebas Neue', sans-serif;
 }
