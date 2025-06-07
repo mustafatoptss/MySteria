@@ -1,6 +1,6 @@
 import React from 'react';
 import img from '../images/Screen2background.png';
-import left from '../images/leftphoto.png';
+import left from '../images/right-bottom2.PNG';
 
 function SecondScreen() {
   return (
@@ -8,7 +8,7 @@ function SecondScreen() {
       {/* ÜST: Sol ve sağ bölümler */}
       <div className="flex h-[700px]">
         {/* Sol üst - Oyun açıklaması */}
-        <div className="w-1/2 flex items-center justify-center bg-black-gradient-to-r from-black to-[#111111] px-12">
+        <div className="w-1/2 flex items-center justify-center  transform transition-transform duration-300 hover:scale-105 bg-black-gradient-to-r from-black to-[#111111] px-12">
           <div className="text-white">
             <h1 className="text-center text-5xl font-bold mb-8 tracking-wider">DEDEKTİF OYUNU</h1>
             <p className="text-center text-3xl opacity-90">Zekanızı test edin, suçluları yakalayın!</p>
@@ -71,8 +71,8 @@ function SecondScreen() {
               </div>
 
               {/* Çağrı cümlesi */}
-              <div className="pt-10">
-                <p className="text-4xl italic font-bold tracking-wider">GERÇEK DEDEKTİF SİZ MİSİNİZ?</p>
+              <div className="pt-10 ">
+                <p className="text-4xl italic font-bold tracking-wider ">GERÇEK DEDEKTİF SİZ MİSİNİZ?</p>
               </div>
             </div>
           </div>
@@ -81,12 +81,13 @@ function SecondScreen() {
 
       {/* ALT: Sol taraftaki boş alan */}
       <div
-        className="w-1/2 bg-cover bg-center bg-no-repeat"
+        className="w-1/2 bg-cover bg-center bg-no-repeat transform transition-transform duration-300 hover:scale-105"
         style={{
           backgroundImage: `url(${left})`,
           height: 'calc(100vh - 300px)',
         }}
-      />
+        
+    div/>
     </div>
   );
 }
