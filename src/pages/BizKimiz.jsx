@@ -10,14 +10,14 @@ function BizKimiz() {
         <h1 className="text-5xl font-extrabold mb-8 text-white text-center">Ben Kimim?</h1>
 
         <p className="text-xl leading-relaxed text-gray-300">
-          Merhaba! Ben <strong className="text-purple-400">Mustafa İsmail Toptaş</strong>. 
-          <span className="text-purple-300 font-medium"> Süleyman Demirel Üniversitesi </span> Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
+          Merhaba! Ben <strong className="text-[#80610c]">Mustafa İsmail Toptaş</strong>. 
+          <span className="text-[purple-300] font-medium"> Süleyman Demirel Üniversitesi </span> Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
           Yazılım dünyasına ilgim lise yıllarında başladı ve o zamandan beri bu alana duyduğum heyecan her geçen gün arttı.
         </p>
 
         <p className="mt-6 text-xl leading-relaxed text-gray-300">
-          Özellikle <span className="text-teal-400 font-semibold">mobil uygulama geliştirme</span> ve 
-          <span className="text-blue-400 font-semibold"> web teknolojileri</span> ile ilgileniyorum.
+          Özellikle <span className="text-[#80610c] font-semibold">mobil uygulama geliştirme</span> ve 
+          <span className="text-[#80610c] font-semibold"> web teknolojileri</span> ile ilgileniyorum.
           Şu anda React ve Flutter gibi teknolojiler üzerine odaklanıyorum. Kullanıcı dostu, estetik arayüzler tasarlamaya özen gösteriyorum.
         </p>
 

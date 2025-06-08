@@ -19,6 +19,7 @@ import LoginPage from './pages/LoginPage';
 import GameScreen from './pages/GameScreen';
 import Profile from './components/Profile';
 import Duzenle from './pages/Duzenle';
+import ProtectedRoute from './components/ProtectedRoutes';
 
 const auth = getAuth(app);
 
@@ -67,7 +68,14 @@ function App() {
           element={<LoginPage setUser={setUser} />} 
         />
         <Route path="/profile" element={<Profile user={user} />} />
-        <Route path="/game" element={<GameScreen user={user} />} />
+      <Route 
+  path="/game" 
+  element={
+    <ProtectedRoute user={user}>
+      <GameScreen user={user} />
+    </ProtectedRoute>
+ }
+/>
         <Route path="/duzenle" element={<Duzenle user={user} />} />
       </Routes>
       <Footer />

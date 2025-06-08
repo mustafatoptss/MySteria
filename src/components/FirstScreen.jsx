@@ -21,13 +21,12 @@ function FirstScreen() {
     <div className="firstscreen-background">
       <div className="header-overlay">
         <div className="left-logos">
-          <img src={spotifyLogo} alt="Spotify Logo" className="logo" />
-          <img
-            src={instagramLogo}
-            alt="Instagram Logo"
-            className="logo"
-            style={{ height: '60px', marginTop: '8px' }}
-          />
+         <a href="https://www.spotify.com" target="_blank" rel="noopener noreferrer">
+  <img src={spotifyLogo} className='logo' alt="Spotify Logo" />
+</a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+  <img src={instagramLogo} className='logo' alt="Spotify Logo" />
+</a>
         </div>
 
      

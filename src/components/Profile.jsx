@@ -20,18 +20,29 @@ const Profile = () => {
   }
 
   return (
-    <Box sx={{ width: '100vh', marginTop: '399px', padding: 3 }}>
-      <Paper elevation={3} sx={{ padding: 4 }}>
-        <Typography variant="h5" gutterBottom>
+    <Box
+      sx={{
+        height: '100vh',               // Tam ekran yüksekliği
+        display: 'flex',               // Flexbox aç
+        justifyContent: 'center',      // Yatay ortala
+        alignItems: 'center',          // Dikey ortala
+        padding: 2,
+        backgroundColor: '#1a1a1a',   // İstersen arka plan rengi verilebilir
+      }}
+    >
+      <Paper elevation={3} sx={{ padding: 4, minWidth: 800, maxWidth: 1600 }}>
+        <Typography variant="h4" gutterBottom>
           Profil Bilgileriniz
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="h5" sx={{ mb: 1 }}>
           <strong>İsim:</strong> {user.displayName || "Tanımlı değil"}
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="h5">
           <strong>Email:</strong> {user.email}
         </Typography>
-        {/* İstersen başka profil bilgileri de ekleyebilirsin */}
+        <Typography variant="h5">
+          <strong>password: *******</strong> {user.password}
+        </Typography>
       </Paper>
     </Box>
   );

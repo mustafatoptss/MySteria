@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function Footer() {
+  const nav = useNavigate();
   return (
     <footer className="bg-neutral-900 text-white font-['Roboto'] px-10 pt-16 pb-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -51,11 +53,11 @@ function Footer() {
         <div>
           <h3 className="text-3xl font-semibold mb-4">Dava Dosyaları</h3>
           <div className="flex flex-col space-y-4">
-            <button className="bg-transparent hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-36 border">
-              Dava 1
+            <button onClick={()=>nav('/game')} className="bg-transparent hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-60 border">
+             Kayıp Mücevherin Sırrı
             </button>
-            <button className="bg-transparent border hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-36 border">
-              Dava 2
+            <button onClick={()=>nav('/game')} className="bg-transparent border hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-60 border">
+              Sisli Şehir
             </button>
           </div>
         </div>
