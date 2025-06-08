@@ -20,6 +20,8 @@ import GameScreen from './pages/GameScreen';
 import Profile from './components/Profile';
 import Duzenle from './pages/Duzenle';
 import ProtectedRoute from './components/ProtectedRoutes';
+import Answer from './pages/Answer';
+
 
 const auth = getAuth(app);
 
@@ -63,6 +65,9 @@ function App() {
         <Route path="/hakkimizda/vizyon" element={<Vizyon />} />
         <Route path="/hakkimizda/ekibimiz" element={<Ekibimiz />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
+        <Route path='/answer' element={<Answer/>} /> 
+        
+        
         <Route 
           path="/login" 
           element={<LoginPage setUser={setUser} />} 
@@ -73,6 +78,7 @@ function App() {
   element={
     <ProtectedRoute user={user}>
       <GameScreen user={user} />
+      
     </ProtectedRoute>
  }
 />

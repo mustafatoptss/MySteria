@@ -51,6 +51,7 @@ const Navbar = ({ user, onLogout }) => {
   // Navbar öğeleri
   const navItems = [
     { name: 'Anasayfa', path: '/', icon: <HomeIcon /> },
+    
     { 
       name: 'Hakkımızda', 
       icon: <InfoIcon />,
@@ -62,6 +63,7 @@ const Navbar = ({ user, onLogout }) => {
     },
     { name: 'Nasıl Oynanır?', path: '/howtoplay', icon: <GameIcon /> },
     { name: 'İletişim', path: '/iletisim', icon: <ContactIcon /> },
+      {name:'Cevaplar', path: '/answer' ,icon: <HomeIcon/>},
   ];
 
   const profileMenuItems = [
@@ -69,6 +71,7 @@ const Navbar = ({ user, onLogout }) => {
     { name: 'Ayarlar', path: '/duzenle', icon: <SettingsIcon /> },
     { name: 'Çıkış Yap', action: handleLogout, icon: <LogoutIcon /> }
   ];
+
 
   return (
     <>

@@ -25,7 +25,7 @@ function FirstScreen() {
   <img src={spotifyLogo} className='logo' alt="Spotify Logo" />
 </a>
             <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-  <img src={instagramLogo} className='logo' alt="Spotify Logo" />
+  <img src={instagramLogo} className='logo2' alt="Spotify Logo" />
 </a>
         </div>
 
@@ -33,20 +33,20 @@ function FirstScreen() {
       </div>
 
       <div className="leading-32 text-8xl mt-10 text-amber-50 ml-15">
-        En büyük <br />
-        gizemleri çözen
+        Sessiz sokaklar <br />
+        karanlık sırlar
         <br />
-        seçkin ekip; <br />
-        MySteria dedektifleri
+        Gölge peşinde <br />
+        iz süren MySteria dedektifleri
       </div>
       <div>
         <p className="ml-15 text-amber-50 text-2xl mb-10">
           Faili meçhul davaları kapatmak için geliyoruz...
         </p>
         <p className="ml-15 text-amber-50 text-2xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />
-          Ipsum quaerat eum beatae, commodi cupiditate odio <br />
-          nemo consectetur labore nisi asperiores?
+          Karanlık sokaklarda yankılanan sessiz adımlar… <br />
+          Her detay bir sır, her bakışta bir şüphe gizli <br />
+          MySteria ekibi, gerçeğin izini sürmek için burada.
         </p>
       </div>
 

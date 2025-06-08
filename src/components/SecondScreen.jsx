@@ -12,7 +12,7 @@ function SecondScreen() {
       {/* ÜST: Sol ve sağ bölümler */}
       <div className="flex h-[700px]">
         {/* Sol üst - Oyun açıklaması */}
-        <div className="w-1/2 flex items-center justify-center transform transition-transform duration-300 hover:scale-105 bg-black-gradient-to-r from-black to-[#111111] px-12">
+        <div style={{cursor: 'pointer'}} onClick={()=>navigate('./game')} className="w-1/2 flex items-center justify-center transform transition-transform duration-300 hover:scale-105 bg-black-gradient-to-r from-black to-[#111111] px-12">
           <div className="text-white">
             <h1 className="text-center text-5xl font-bold mb-8 tracking-wider">DEDEKTİF OYUNU</h1>
             <p className="text-center text-3xl opacity-90">Zekanızı test edin, suçluları yakalayın!</p>
@@ -35,7 +35,7 @@ function SecondScreen() {
             <div className="max-w-2xl space-y-12 text-center">
               
               {/* Madde 1 */}
-              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <div  className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
                 <div className="text-6xl mb-6">🕵️</div>
                 <h2 className="text-4xl font-bold mb-4">EKİBİNİ KUR, HAZIRLIK YAP</h2>
                 <p className="text-2xl leading-relaxed">
@@ -45,7 +45,7 @@ function SecondScreen() {
               </div>
 
               {/* Madde 2 */}
-              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
                 <div className="text-6xl mb-6">📜</div>
                 <h2 className=" text-4xl font-bold mb-4  ">SENARYOYU SEÇ</h2>
                 <p className="text-2xl leading-relaxed">
@@ -55,7 +55,7 @@ function SecondScreen() {
               </div>
 
               {/* Madde 3 */}
-              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
                 <div className="text-6xl mb-6">🔍</div>
                 <h2 className="text-4xl font-bold mb-4">DAVA DOSYALARINI İNCELE</h2>
                 <p className="text-2xl leading-relaxed">
@@ -65,7 +65,7 @@ function SecondScreen() {
               </div>
 
               {/* Madde 4 */}
-              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
                 <div className="text-6xl mb-6">⚖️</div>
                 <h2 className="text-4xl font-bold mb-4">KATİLİ BUL!</h2>
                 <p className="text-2xl leading-relaxed">

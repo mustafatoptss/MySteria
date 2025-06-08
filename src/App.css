@@ -2,3 +2,6 @@
 .roboto-font {
   font-family: 'Roboto', sans-serif !important;
 }
+.cursorr{
+   cursor: url('/cursor.cur'), auto;
+}
