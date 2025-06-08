@@ -33,7 +33,7 @@ const items = [
 
 function GameScreen() {
   return (
-    <div className="bg-[#1a1a1a] h-screen grid grid-cols-4 grid-rows-1 mt-27">
+    <div  className="bg-[#1a1a1a] h-screen grid grid-cols-4 grid-rows-1 mt-3">
       {[img3, img4, img5, img6].map((img, idx) => (
         <div
           key={idx}
@@ -41,7 +41,7 @@ function GameScreen() {
             backgroundImage: `url(${img})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            zIndex: 2133,
+          
           }}
           className="relative h-screen flex flex-col justify-center items-center
                      text-white font-bold transform transition-transform duration-300 hover:scale-105 cursor-pointer p-6"

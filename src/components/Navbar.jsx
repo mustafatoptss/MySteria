@@ -1,192 +1,385 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Button,
-  Menu,
-  MenuItem,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
+import { 
+  AppBar, 
+  Toolbar, 
+  Typography, 
+  IconButton, 
+  Button, 
+  Menu, 
+  MenuItem, 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemText, 
+  Box, 
+  Divider,
+  Avatar
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import {
+  Menu as MenuIcon,
+  AccountCircle as AccountCircleIcon,
+  Home as HomeIcon,
+  Info as InfoIcon,
+  ContactMail as ContactIcon,
+  SportsEsports as GameIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
+  Settings as SettingsIcon,
+  People as PeopleIcon
+} from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar() {
-  const [anchorEl, setAnchorEl] = useState(null);
+const Navbar = ({ user, onLogout }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [aboutAnchorEl, setAboutAnchorEl] = useState(null);
   const navigate = useNavigate();
 
-  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
+  // Menü fonksiyonları
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
+  const handleAboutMenuOpen = (event) => setAboutAnchorEl(event.currentTarget);
+  const handleAboutMenuClose = () => setAboutAnchorEl(null);
   const toggleDrawer = (open) => () => setDrawerOpen(open);
 
-  const handleAboutMenuClick = (path) => {
+  const handleLogout = () => {
+    onLogout();
     handleMenuClose();
-    navigate(path);
+    navigate('/login');
   };
 
-  // Ortak button stili:
-  const buttonStyle = {
-    fontSize: '24px',
-    color: 'white',
-    backgroundColor: 'transparent',
-    borderRadius: '8px',
-    padding: '8px 16px',
-    transition: 'background-color 0.3s ease',
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
-      color: 'white',
+  // Navbar öğeleri
+  const navItems = [
+    { name: 'Anasayfa', path: '/', icon: <HomeIcon /> },
+    { 
+      name: 'Hakkımızda', 
+      icon: <InfoIcon />,
+      subItems: [
+        { name: 'Biz Kimiz?', path: '/hakkimizda/biz-kimiz' },
+        { name: 'Vizyon & Misyon', path: '/hakkimizda/vizyon' },
+        { name: 'Ekibimiz', path: '/hakkimizda/ekibimiz' }
+      ]
     },
-  };
+    { name: 'Nasıl Oynanır?', path: '/howtoplay', icon: <GameIcon /> },
+    { name: 'İletişim', path: '/iletisim', icon: <ContactIcon /> },
+  ];
+
+  const profileMenuItems = [
+    { name: 'Profil', path: '/profile', icon: <AccountCircleIcon /> },
+    { name: 'Ayarlar', path: '/duzenle', icon: <SettingsIcon /> },
+    { name: 'Çıkış Yap', action: handleLogout, icon: <LogoutIcon /> }
+  ];
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        sx={{
-          height: '120px',
-          backgroundColor: 'black',
-          zIndex: 1300,
-          display: 'flex',
-          justifyContent: 'center',
-          paddingX: 2,
-        }}
-      >
-        <Toolbar sx={{ height: '100%', paddingLeft: 0, gap: 2 }}>
-          {/* Menü İkonu ve Logo Kapsayıcısı */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              backgroundColor: 'black',
-              borderRadius: '12px',
-              padding: '8px 16px',
-              gap: '12px',
-              cursor: 'pointer',
-              userSelect: 'none',
-            }}
-          >
+      <AppBar position="fixed" sx={{ 
+        height: 80, 
+        backgroundColor: '#1a1a1a',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.5)'
+      }}>
+        <Toolbar sx={{ 
+          height: '100%', 
+          display: 'flex', 
+          justifyContent: 'space-between',
+          paddingX: { xs: 2, md: 4 }
+        }}>
+          {/* Sol Taraf */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
             <IconButton
               edge="start"
-              onClick={toggleDrawer(true)}
               color="inherit"
               aria-label="menu"
-              sx={{
-                width: 56,
-                height: 56,
-                fontSize: 40,
-                padding: 0,
-              }}
+              onClick={toggleDrawer(true)}
+              sx={{ display: { xs: 'flex', md: 'none' } }}
             >
-              <MenuIcon fontSize="inherit" />
+              <MenuIcon fontSize="large" />
             </IconButton>
 
             <Typography
               variant="h4"
-              noWrap
+              component={Link}
+              to="/"
               sx={{
-                color: 'white',
+                color: '#ffb700',
                 fontWeight: 'bold',
-                userSelect: 'none',
-                letterSpacing: 2,
-                backgroundColor: "black",
-                fontSize: "40px",
-                borderRadius: "8px",
-                padding: "4px"
+                textDecoration: 'none',
+                fontFamily: '"Roboto Condensed", sans-serif',
+                letterSpacing: 1.5
               }}
             >
               MySteria
             </Typography>
-          </div>
+          </Box>
 
-          {/* Menü Butonları */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '20px',
-              height: '64px',
-              marginLeft: 'auto',
-            }}
-          >
-            <Button sx={buttonStyle} component={Link} to="/">
-              Anasayfa
-            </Button>
+          {/* Orta Kısım (Desktop) */}
+          <Box sx={{ 
+            display: { xs: 'none', md: 'flex' },
+            gap: 1
+          }}>
+            {navItems.map((item) => (
+              item.subItems ? (
+                <Box key={item.name}>
+                  <Button
+                    onClick={handleAboutMenuOpen}
+                    startIcon={item.icon}
+                    sx={{
+                      color: 'white',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      '&:hover': {
+                        color: '#ffb700'
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </Button>
+                  <Menu
+                    anchorEl={aboutAnchorEl}
+                    open={Boolean(aboutAnchorEl)}
+                    onClose={handleAboutMenuClose}
+                    PaperProps={{
+                      sx: {
+                        mt: 1.5,
+                        minWidth: 200,
+                        bgcolor: '#2a2a2a',
+                        color: 'white',
+                        '& .MuiMenuItem-root': {
+                          gap: 1.5,
+                          py: 1.5
+                        }
+                      }
+                    }}
+                  >
+                    {item.subItems.map((subItem) => (
+                      <MenuItem
+                        key={subItem.name}
+                        onClick={() => {
+                          handleAboutMenuClose();
+                          navigate(subItem.path);
+                        }}
+                        sx={{
+                          '&:hover': {
+                            bgcolor: 'rgba(255, 183, 0, 0.1)'
+                          }
+                        }}
+                      >
+                        {subItem.name}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              ) : (
+                <Button
+                  key={item.name}
+                  component={Link}
+                  to={item.path}
+                  startIcon={item.icon}
+                  sx={{
+                    color: 'white',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    '&:hover': {
+                      color: '#ffb700'
+                    }
+                  }}
+                >
+                  {item.name}
+                </Button>
+              )
+            ))}
+          </Box>
 
-            <Button sx={buttonStyle} onClick={handleMenuClick}>
-              Hakkımızda
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              PaperProps={{
-                sx: {
-                  backgroundColor: '#222',
+          {/* Sağ Taraf */}
+          <Box>
+            {user ? (
+              <>
+                <IconButton
+                  onClick={handleMenuOpen}
+                  sx={{ p: 0 }}
+                >
+                  <Avatar 
+                    alt={user.displayName} 
+                    src={user.photoURL}
+                    sx={{ 
+                      width: 40, 
+                      height: 40,
+                      bgcolor: '#ffb700',
+                      color: '#1a1a1a'
+                    }}
+                  >
+                    {user.displayName?.charAt(0) || user.email?.charAt(0)}
+                  </Avatar>
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  PaperProps={{
+                    sx: {
+                      mt: 1.5,
+                      minWidth: 200,
+                      bgcolor: '#2a2a2a',
+                      color: 'white',
+                      '& .MuiMenuItem-root': {
+                        gap: 1.5,
+                        py: 1.5
+                      }
+                    }
+                  }}
+                >
+                  <Box sx={{ px: 2, py: 1.5 }}>
+                    <Typography fontWeight="bold">{user.displayName}</Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.8 }}>
+                      {user.email}
+                    </Typography>
+                  </Box>
+                  <Divider sx={{ borderColor: '#444', my: 1 }} />
+                  {profileMenuItems.map((item) => (
+                    <MenuItem
+                      key={item.name}
+                      onClick={() => {
+                        handleMenuClose();
+                        item.path ? navigate(item.path) : item.action?.();
+                      }}
+                      sx={{
+                        '&:hover': {
+                          bgcolor: 'rgba(255, 183, 0, 0.1)'
+                        }
+                      }}
+                    >
+                      {item.icon}
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            ) : (
+              <Button
+                component={Link}
+                to="/login"
+                startIcon={<LoginIcon />}
+                variant="outlined"
+                sx={{
                   color: 'white',
-                },
-              }}
-            >
-              <MenuItem onClick={() => handleAboutMenuClick('/hakkimizda/biz-kimiz')}>
-                Biz Kimiz?
-              </MenuItem>
-              <MenuItem onClick={() => handleAboutMenuClick('/hakkimizda/vizyon')}>
-                Vizyon & Misyon
-              </MenuItem>
-              <MenuItem onClick={() => handleAboutMenuClick('/hakkimizda/ekibimiz')}>
-                Ekibimiz
-              </MenuItem>
-            </Menu>
-
-            <Button sx={buttonStyle} component={Link} to="/iletisim">
-              İletişim
-            </Button>
-
-            <Button sx={buttonStyle} component={Link} to="/howtoplay">
-              Nasıl Oynanır ?
-            </Button>
-          </div>
+                  borderColor: 'white',
+                  '&:hover': {
+                    color: '#ffb700',
+                    borderColor: '#ffb700'
+                  }
+                }}
+              >
+                Giriş Yap
+              </Button>
+            )}
+          </Box>
         </Toolbar>
       </AppBar>
 
+      {/* Mobil Drawer */}
       <Drawer
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer(false)}
         PaperProps={{
           sx: {
-            top: '120px',
-            backgroundColor: '#2c2c2c',
-            height: 'calc(100% - 120px)',
-          },
+            width: 250,
+            bgcolor: '#1a1a1a',
+            color: 'white'
+          }
         }}
       >
-        <List sx={{ width: 250 }}>
-          {['Profil', 'Ayarlar', 'Çıkış Yap'].map((text) => (
-            <ListItem
-              button
-              key={text}
-              onClick={toggleDrawer(false)}
-              sx={{
-                color: 'white',
-                fontWeight: 700,
-                '&:hover': {
-                  backgroundColor: 'white',
-                  color: 'black',
-                },
-              }}
-            >
-              <ListItemText primary={text} />
-            </ListItem>
+        <Box sx={{ p: 2, height: 80, display: 'flex', alignItems: 'center' }}>
+          <Typography variant="h6">MySteria</Typography>
+        </Box>
+        <Divider sx={{ borderColor: '#333' }} />
+        <List>
+          {navItems.map((item) => (
+            item.subItems ? (
+              <Box key={item.name}>
+                <ListItem 
+                  button 
+                  onClick={handleAboutMenuOpen}
+                  sx={{
+                    '&:hover': {
+                      bgcolor: 'rgba(255, 183, 0, 0.1)'
+                    }
+                  }}
+                >
+                  <ListItemText primary={item.name} />
+                </ListItem>
+                {item.subItems.map((subItem) => (
+                  <ListItem
+                    button
+                    key={subItem.name}
+                    component={Link}
+                    to={subItem.path}
+                    onClick={toggleDrawer(false)}
+                    sx={{
+                      pl: 4,
+                      '&:hover': {
+                        bgcolor: 'rgba(255, 183, 0, 0.1)'
+                      }
+                    }}
+                  >
+                    <ListItemText primary={subItem.name} />
+                  </ListItem>
+                ))}
+              </Box>
+            ) : (
+              <ListItem
+                button
+                key={item.name}
+                component={Link}
+                to={item.path}
+                onClick={toggleDrawer(false)}
+                sx={{
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 183, 0, 0.1)'
+                  }
+                }}
+              >
+                <ListItemText primary={item.name} />
+              </ListItem>
+            )
           ))}
         </List>
+        <Divider sx={{ borderColor: '#333' }} />
+        <List>
+          {user ? (
+            profileMenuItems.map((item) => (
+              <ListItem
+                button
+                key={item.name}
+                onClick={() => {
+                  toggleDrawer(false)();
+                  item.path ? navigate(item.path) : item.action?.();
+                }}
+                sx={{
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 183, 0, 0.1)'
+                  }
+                }}
+              >
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))
+          ) : (
+            <ListItem
+              button
+              component={Link}
+              to="/login"
+              onClick={toggleDrawer(false)}
+            >
+              <ListItemText primary="Giriş Yap" />
+            </ListItem>
+          )}
+        </List>
       </Drawer>
+
+      {/* AppBar yüksekliği için boşluk */}
+      <Toolbar sx={{ height: 80 }} />
     </>
   );
-}
+};
 
 export default Navbar;

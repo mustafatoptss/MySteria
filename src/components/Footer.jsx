@@ -42,9 +42,9 @@ function Footer() {
         {/* 3. Sütun - İletişim Bilgileri */}
         <div>
           <h3 className="text-3xl font-semibold mb-4">İletişim</h3>
-          <p className="text-lg text-gray-300 mb-2">📍 İstanbul, Türkiye</p>
-          <p className="text-lg text-gray-300 mb-2">✉️ info@mysteria.com</p>
-          <p className="text-lg text-gray-300">📞 +90 555 123 45 67</p>
+          <p className="text-lg text-gray-300 mb-2">📍 Isparta, Türkiye</p>
+          <p className="text-lg text-gray-300 mb-2">✉️ mustafatoptss80@gmail.com</p>
+          <p className="text-lg text-gray-300">📞 +90 555 555 55 55</p>
         </div>
 
         {/* 4. Sütun - Dava Butonları */}

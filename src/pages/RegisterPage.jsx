@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import GoogleIcon from '@mui/icons-material/Google';
 
 function RegisterPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage('Şifreler eşleşmiyor');
+      return;
+    }
+
+    // Backend çağrısı kaldırıldı, buraya backend eklenecek
+    setMessage('Kayıt işlemi backend olmadan yapılmıyor.');
+  };
+
   return (
     <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-[#2a2a2a] rounded-lg shadow-lg p-8">
         <h2 className="text-4xl font-bold text-white text-center mb-8">Kayıt Ol</h2>
 
-        <form className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
               İsim
@@ -19,6 +38,8 @@ function RegisterPage() {
               placeholder="İsminiz"
               className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
+              value={name}
+              onChange={e => setName(e.target.value)}
             />
           </div>
 
@@ -32,6 +53,8 @@ function RegisterPage() {
               placeholder="example@mail.com"
               className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </div>
 
@@ -45,6 +68,8 @@ function RegisterPage() {
               placeholder="Şifreniz"
               className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
           </div>
 
@@ -58,6 +83,8 @@ function RegisterPage() {
               placeholder="Şifrenizi tekrar girin"
               className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
             />
           </div>
 
@@ -69,14 +96,13 @@ function RegisterPage() {
           </button>
         </form>
 
-        {/* Ya da Google ile giriş yap */}
         <div className="mt-8 flex flex-col items-center gap-4">
           <p className="text-gray-400">Ya da</p>
 
           <Button
             variant="outlined"
             startIcon={<GoogleIcon />}
-            onClick={() => alert('Google ile Giriş İşlemi')}
+            onClick={() => alert('Google ile Giriş İşlemi (backend olmadan pas geçiliyor)')}
             sx={{
               color: 'white',
               borderColor: '#fff',
@@ -96,11 +122,15 @@ function RegisterPage() {
           </Button>
         </div>
 
+        {message && (
+          <p className="mt-6 text-center text-red-500 font-semibold">{message}</p>
+        )}
+
         <p className="mt-6 text-center text-gray-400">
           Hesabın var mı?{' '}
-          <a href="/login" className="text-amber-400 hover:underline">
+          <Link to="/login" className="text-amber-400 hover:underline">
             Giriş Yap
-          </a>
+          </Link>
         </p>
       </div>
     </div>
