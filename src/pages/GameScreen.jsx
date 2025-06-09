@@ -1,6 +1,5 @@
 import React from 'react';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import { storage } from '../firebase'; // Firebase config dosyanız
+import { useNavigate } from 'react-router-dom';
 import img3 from '../images/img31.jpg';
 import img4 from '../images/img32.jpg';
 import img5 from '../images/img33.jpg';
@@ -10,7 +9,7 @@ const items = [
   {
     title: 'Kayıp Mücevherin Sırrı',
     description: 'Zengin bir koleksiyoncunun nadide mücevheri aniden ortadan kaybolur...',
-    pdfName: 'Cayirhan Cinayeti.pdf' // Firebase'deki dosya adı
+    pdfName: 'hikaye1.pdf'
   },
   {
     title: 'Sisli Şehir Cinayeti',
@@ -30,22 +29,11 @@ const items = [
 ];
 
 function GameScreen() {
-const handleDownload = async (pdfName) => {
-  try {
-    const pdfRef = ref(storage, `public/pdfs/${pdfName}`);
-    const url = await getDownloadURL(pdfRef);
+  const navigate = useNavigate();
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = pdfName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } catch (error) {
-    console.error('PDF indirme hatası:', error);
-    alert('PDF indirilemedi. Lütfen internet bağlantınızı kontrol edin veya erişim izinlerini kontrol edin.');
-  }
-};
+  const handleRedirect = (pdfName) => {
+    navigate('/pay', { state: { pdfName } });
+  };
 
   return (
     <div className="bg-[#1a1a1a] h-screen grid grid-cols-4 grid-rows-1 mt-3">
@@ -65,8 +53,8 @@ const handleDownload = async (pdfName) => {
               {items[idx].description}
             </p>
           </div>
-          <button 
-            onClick={() => handleDownload(items[idx].pdfName)}
+          <button
+            onClick={() => handleRedirect(items[idx].pdfName)}
             className="mt-16 px-6 py-3 bg-transparent hover:bg-black hover:text-white text-white border text-3xl font-semibold rounded-lg shadow-lg transition-colors"
           >
             PDF'i İndir

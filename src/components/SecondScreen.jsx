@@ -36,9 +36,9 @@ function SecondScreen() {
               
               {/* Madde 1 */}
               <div  className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-6xl mb-6">🕵️</div>
-                <h2 className="text-4xl font-bold mb-4">EKİBİNİ KUR, HAZIRLIK YAP</h2>
-                <p className="text-2xl leading-relaxed">
+                <div className="text-5xl mb-6">🕵️</div>
+                <h2 className="text-3xl font-bold mb-4">EKİBİNİ KUR, HAZIRLIK YAP</h2>
+                <p className="text-xl leading-relaxed">
                   En kısa sürede davayı kapatmak için seçkin bir ekip kurun, 
                   uygun bir mekanda ve karakterinize uygun şekilde giyinerek hazırlanın.
                 </p>
@@ -46,9 +46,9 @@ function SecondScreen() {
 
               {/* Madde 2 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-6xl mb-6">📜</div>
-                <h2 className=" text-4xl font-bold mb-4  ">SENARYOYU SEÇ</h2>
-                <p className="text-2xl leading-relaxed">
+                <div className="text-5xl mb-6">📜</div>
+                <h2 className=" text-3xl font-bold mb-4  ">SENARYOYU SEÇ</h2>
+                <p className="text-xl leading-relaxed">
                   Birbirinden benzersiz, heyecanlı ve gerilimli davalar sizi bekliyor. 
                   İster tek başınıza, ister ekibinizle zamana karşı yarışın.
                 </p>
@@ -56,9 +56,9 @@ function SecondScreen() {
 
               {/* Madde 3 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-6xl mb-6">🔍</div>
-                <h2 className="text-4xl font-bold mb-4">DAVA DOSYALARINI İNCELE</h2>
-                <p className="text-2xl leading-relaxed">
+                <div className="text-5xl mb-6">🔍</div>
+                <h2 className="text-3xl font-bold mb-4">DAVA DOSYALARINI İNCELE</h2>
+                <p className="text-xl leading-relaxed">
                   Çözülemeyen sırlar, şifreler ve ipuçları. Tüm dosyalar PDF olarak sizde. 
                   Hiçbir detayı atlamadan araştırma yapın.
                 </p>
@@ -66,9 +66,9 @@ function SecondScreen() {
 
               {/* Madde 4 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-6xl mb-6">⚖️</div>
-                <h2 className="text-4xl font-bold mb-4">KATİLİ BUL!</h2>
-                <p className="text-2xl leading-relaxed">
+                <div className="text-5xl mb-6">⚖️</div>
+                <h2 className="text-3xl font-bold mb-4">KATİLİ BUL!</h2>
+                <p className="text-xl leading-relaxed">
                   "Ne? Nerede? Ne zaman? Neden? Nasıl? ve Kim?" sorularını yanıtlayarak 
                   adaletin yerini bulmasını sağlayın.
                 </p>

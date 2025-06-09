@@ -51,16 +51,35 @@ function Footer() {
 
         {/* 4. Sütun - Dava Butonları */}
         <div>
-          <h3 className="text-3xl font-semibold mb-4">Dava Dosyaları</h3>
-          <div className="flex flex-col space-y-4">
-            <button onClick={()=>nav('/game')} className="bg-transparent hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-60 border">
-             Kayıp Mücevherin Sırrı
-            </button>
-            <button onClick={()=>nav('/game')} className="bg-transparent border hover:bg-gray-600 text-lg px-6 py-3 rounded-lg transition duration-200 w-60 border">
-              Sisli Şehir
-            </button>
-          </div>
-        </div>
+  <h3 className="text-3xl font-semibold mb-4">Dava Dosyaları</h3>
+
+  <div className="grid grid-cols-2 gap-4 w-80">
+    <button
+      onClick={() => nav('/game')}
+      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
+    >
+      Kayıp Mücevher
+    </button>
+    <button
+      onClick={() => nav('/game')}
+      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
+    >
+      Sisli Şehir
+    </button>
+    <button
+      onClick={() => nav('/game')}
+      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
+    >
+      Sisli Şehir
+    </button>
+    <button
+      onClick={() => nav('/game')}
+      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
+    >
+      Sisli Şehir
+    </button>
+  </div>
+</div>
       </div>
 
       {/* Alt Bilgi */}

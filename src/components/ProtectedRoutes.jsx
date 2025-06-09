@@ -1,15 +1,15 @@
-// src/components/ProtectedRoute.js
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
-const ProtectedRoute = ({ user, children }) => {
+const ProtectedRoutes = ({ children }) => {
+  const { user } = useUser();
+
   if (!user) {
-    // Kullanıcı yoksa login sayfasına yönlendir
     return <Navigate to="/login" replace />;
   }
-  
-  // Kullanıcı varsa çocuk bileşenleri (örneğin GameScreen) render et
+
   return children;
 };
 
-export default ProtectedRoute;
+export default ProtectedRoutes;
