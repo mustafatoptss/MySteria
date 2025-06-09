@@ -87,3 +87,59 @@
 
   
 }
+/* ...mevcut kodlar kalacak, sadece altına ekle... */
+
+@media (max-width: 768px) {
+  .firstscreen-background {
+    height: auto;
+    padding: 20px;
+    margin-top: -80px;
+    background-position: top;
+    background-size: cover;
+  }
+
+  .header-overlay {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+
+  .left-logos {
+    gap: 20px;
+  }
+
+  .logo {
+    height: 50px;
+  }
+
+  .logo2 {
+    height: 45px;
+    margin-top: 5px;
+  }
+
+  .leading-32 {
+    font-size: 1.8rem; /* text-8xl yerine */
+    line-height: 1.5rem;
+    margin: 20px 0;
+    margin-left: 0;
+  }
+
+  .text-2xl {
+    font-size: 1rem;
+    margin-left: 0;
+  }
+
+  .playbtn {
+    position: static;
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .playbtn button {
+    width: 90%;
+    max-width: 300px;
+    height: 60px;
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,41 @@
+/* GameScreen.css */
+
+/* Base styles (unchanged for desktop) */
+.bg-\[\#1a1a1a\] {
+  background-color: #1a1a1a;
+}
+
+/* Mobile-specific styles (only applied on phone screens) */
+@media only screen and (max-width: 767px) {
+  .grid-cols-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr) !important;
+    height: auto !important;
+    min-height: 200vh; /* Double the viewport height for 2x2 grid */
+  }
+
+  .h-screen {
+    height: auto !important;
+    min-height: 50vh !important; /* Each item takes half viewport height */
+  }
+
+  .max-w-md {
+    max-width: 90% !important;
+    padding: 1rem;
+  }
+
+  .text-3xl {
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  button {
+    margin-top: 1rem !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1.2rem !important;
+  }
+}

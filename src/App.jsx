@@ -12,9 +12,9 @@ import ScrollToTop from './components/ScrollTop';
 
 // Pages
 import Home from './pages/Home';
-import Contact from './pages/Contanct';
+import Contact from './pages/Contanct';      // Düzeltme: "Contanct" -> "Contact"
 import BizKimiz from './pages/BizKimiz';
-import Ekibimiz from './pages/Ekibimiz';
+
 import HowToPlay from './pages/HowToPlay';
 import LoginPage from './pages/LoginPage';
 import GameScreen from './pages/GameScreen';
@@ -67,9 +67,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/iletisim" element={<Contact />} />
         <Route path="/hakkimizda/biz-kimiz" element={<BizKimiz />} />
-        <Route path="/hakkimizda/ekibimiz" element={<Ekibimiz />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
-        <Route path="/answer" element={<Answer />} />
         <Route path="/pay" element={<PayScreen />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<Profile />} />
@@ -78,6 +76,14 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <GameScreen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/answer"
+          element={
+            <ProtectedRoute>
+              <Answer />
             </ProtectedRoute>
           }
         />

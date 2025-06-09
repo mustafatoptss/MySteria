@@ -31,18 +31,19 @@ function HowToPlay() {
           transition={{ delay: 0.6, duration: 1 }}
           className="text-lg md:text-xl leading-relaxed text-gray-200 bg-black/60 p-6 md:p-10 rounded-xl shadow-2xl backdrop-blur-md"
         >
-          <p className="mb-6 text-2xl">
-            İster tek başına ya da ekibinle birlikte zamana karşı oynayarak katili en kısa sürede bulmaya çalışabilir, istersen de senin ve arkadaşlarının şüpheliler arasında bulunduğu senaryoda (çok yakında gelecek) yaşanan olayların arkasındaki gizemi çözen ve katili bulan ilk kişi olmaya çalışabilirsin.
-          </p>
-          <p className="mb-6 text-2xl">
-            MySteria dedektiflik oyununu oynamak için gereken her şeyi PDF formatında sana sunuyoruz. Gerekli tüm belgeleri yazdırarak evde veya her neredeysen bulunduğun yeri bir soruşturma ofisine çevirebilirsin.
-          </p>
-          <p className="mb-6 text-2xl">
-            Eğer yazdırma imkanın yoksa tüm içerikleri PDF formatında indirip dijital olarak da oynayabilirsin.
-          </p>
-          <p className='text-2xl'>
-            Başlamaya hazır olduğunda sana teslim edilen dosyayı detaylıca incelemeli ve ipuçlarını çözmelisin. Kendini hazır hissettiğinde, ilgili senaryoya ait sayfanın altındaki MySteria sorularını cevaplayarak vakayı çözmeyi deneyebilirsin.
-          </p>
+        <p className="mb-6 text-2xl">
+  İstersen tek başına, istersen de takımınla birlikte zamana karşı yarışarak katili en hızlı şekilde bulmaya çalışabilirsin. Çok yakında çıkacak yeni senaryoda ise sen ve arkadaşların şüpheli konumunda olacak, yaşanan gizemli olayları çözerek katili bulan ilk kişi olmaya çalışacaksınız.
+</p>
+<p className="mb-6 text-2xl">
+  MySteria dedektiflik oyunu için ihtiyaç duyduğun tüm materyalleri PDF formatında sana sunuyoruz. Bu belgeleri yazdırıp evde ya da bulunduğun herhangi bir yerde kendi soruşturma odanı oluşturabilirsin.
+</p>
+<p className="mb-6 text-2xl">
+  Yazdırma imkanın yoksa, PDF dosyalarını indirerek dijital ortamda da oyun deneyimini yaşayabilirsin.
+</p>
+<p className="text-2xl">
+  Hazır olduğunda sana verilen dosyayı dikkatlice incele, ipuçlarını çöz ve ilgili senaryoya ait sayfanın altındaki MySteria sorularını yanıtlayarak vakayı çözmeye çalış.
+</p>
+
 
           {/* Buton */}
           <div className='mt-12 flex justify-center'>

@@ -25,7 +25,9 @@ import {
   createUserWithEmailAndPassword, 
   signInWithPopup, 
   GoogleAuthProvider,
-  updateProfile
+  updateProfile,
+  sendEmailVerification,
+  signOut
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../firebase';
@@ -65,7 +67,18 @@ const LoginPage = ({ setUser }) => {
           formData.email, 
           formData.password
         );
-        handleAuthSuccess(userCredential.user);
+        
+        // Email doğrulama kontrolü
+        if (!userCredential.user.emailVerified) {
+          setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
+          // Yine de kullanıcıyı set ediyoruz ve yönlendiriyoruz
+          await signOut(auth);
+          
+
+          handleAuthSuccess(userCredential.user);
+        } else {
+          handleAuthSuccess(userCredential.user);
+        }
       } else {
         // Kayıt ol
         if (formData.password !== formData.confirmPassword) {
@@ -80,10 +93,19 @@ const LoginPage = ({ setUser }) => {
         await updateProfile(userCredential.user, {
           displayName: formData.name
         });
-        handleAuthSuccess({
-          ...userCredential.user,
-          displayName: formData.name
+
+        // E-posta doğrulama maili gönder
+        await sendEmailVerification(userCredential.user);
+
+        setMessage({ 
+          text: 'Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın. Doğrulama maili gönderildi.', 
+          type: 'success' 
         });
+        
+        // İstersen kayıt sonrası otomatik giriş yapma veya giriş ekranına yönlendirme yapabilirsin
+        setIsLogin(true);
+        setLoading(false);
+        setFormData({ name: '', email: '', password: '', confirmPassword: '' });
       }
     } catch (error) {
       setMessage({ 
@@ -98,6 +120,11 @@ const LoginPage = ({ setUser }) => {
     try {
       setLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
+
+      if (!result.user.emailVerified) {
+        setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
+      }
+
       handleAuthSuccess(result.user);
     } catch (error) {
       setMessage({ 
@@ -155,7 +182,7 @@ const LoginPage = ({ setUser }) => {
 
         {message.text && (
           <Typography
-            color={message.type === 'error' ? 'error' : 'primary'}
+            color={message.type === 'error' ? 'error' : message.type === 'warning' ? 'warning.main' : 'primary'}
             sx={{ mb: 2, textAlign: 'center' }}
           >
             {message.text}
@@ -358,46 +385,43 @@ const LoginPage = ({ setUser }) => {
             {loading ? 'İşleniyor...' : isLogin ? 'Giriş Yap' : 'Kayıt Ol'}
           </Button>
 
-          <Divider sx={{ my: 3, borderColor: 'rgba(255, 255, 255, 0.12)' }}>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-              VEYA
-            </Typography>
-          </Divider>
+          <Divider sx={{ my: 2, color: 'rgba(255,255,255,0.3)' }}>VEYA</Divider>
 
           <Button
             fullWidth
             variant="outlined"
             startIcon={<GoogleIcon />}
             onClick={handleGoogleSignIn}
-            disabled={loading}
             sx={{
-              py: 1.5,
               color: 'white',
-              borderColor: 'white',
+              borderColor: 'rgba(255,255,255,0.7)',
               '&:hover': {
                 borderColor: '#ffb700',
-                color: '#ffb700'
+                color: '#ffb700',
+                bgcolor: 'rgba(255, 183, 0, 0.1)'
               }
             }}
+            disabled={loading}
           >
-            Google ile {isLogin ? 'Giriş Yap' : 'Kayıt Ol'}
+            Google ile Giriş Yap
           </Button>
 
-          <Box sx={{ textAlign: 'center', mt: 3 }}>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-              {isLogin ? 'Hesabın yok mu?' : 'Zaten hesabın var mı?'}
-              <Button 
-                size="small" 
-                sx={{ ml: 1, color: '#ffb700' }}
-                onClick={() => {
-                  setIsLogin(!isLogin);
-                  setMessage({ text: '', type: '' });
-                }}
-              >
-                {isLogin ? 'Kayıt Ol' : 'Giriş Yap'}
-              </Button>
-            </Typography>
-          </Box>
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ mt: 3, color: 'rgba(255, 255, 255, 0.7)' }}
+          >
+            {isLogin ? 'Hesabınız yok mu? ' : 'Zaten hesabınız var mı? '}
+            <Button
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setMessage({ text: '', type: '' });
+              }}
+              sx={{ textTransform: 'none', color: '#ffb700' }}
+            >
+              {isLogin ? 'Kayıt Ol' : 'Giriş Yap'}
+            </Button>
+          </Typography>
         </Box>
       </Paper>
     </Box>

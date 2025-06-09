@@ -1,275 +1,431 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
-import GoogleIcon from "@mui/icons-material/Google";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import React, { useState } from 'react';
+import { 
+  Button, 
+  TextField, 
+  Typography, 
+  Box, 
+  Paper, 
+  Divider, 
+  IconButton,
+  InputAdornment,
+  FormControlLabel,
+  Checkbox
+} from '@mui/material';
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
+  Google as GoogleIcon,
+  Visibility,
+  VisibilityOff,
+  Email as EmailIcon,
+  Lock as LockIcon,
+  Person as PersonIcon
+} from '@mui/icons-material';
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithPopup, 
   GoogleAuthProvider,
-} from "firebase/auth";
-import { app } from "../firebase";
-import { useNavigate } from "react-router-dom";
+  updateProfile,
+  sendEmailVerification,
+  signOut
+} from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
+import { app } from '../firebase';
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 
-const LoginPage = () => {
-  const navigate = useNavigate();
+const LoginPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [rememberMe, setRememberMe] = useState(false);
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  // Login state
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [loginMessage, setLoginMessage] = useState("");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-  // Register state
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [regMessage, setRegMessage] = useState("");
-
-  // Email/password login
-  const loginSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoginMessage("");
-    signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-      .then((userCredential) => {
-        toast.success("Giriş başarılı!", { position: "bottom-right" });
-        setLoginEmail("");
-        setLoginPassword("");
-        const user = userCredential.user;
-        setLoginMessage(`Hoşgeldin, ${user.email}`);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+    setLoading(true);
+    setMessage({ text: '', type: '' });
+
+    try {
+      if (isLogin) {
+        // Giriş yap
+        const userCredential = await signInWithEmailAndPassword(
+          auth, 
+          formData.email, 
+          formData.password,
+         
+        );
         
-      })
-      .catch((error) => {
-        setLoginMessage(error.message);
-        toast.error("Giriş başarısız!", { position: "bottom-right" });
-      });
-  };
+        // Email doğrulama kontrolü
+        if (!userCredential.user.emailVerified) {
+          setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
+          // Yine de kullanıcıyı set ediyoruz ve yönlendiriyoruz
+          await signOut(auth);
+          
 
-  // Email/password register
-  const registerSubmit = (e) => {
-    e.preventDefault();
-    setRegMessage("");
-    if (password !== confirmPassword) {
-      setRegMessage("Şifreler eşleşmiyor");
-      return;
-    }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setRegMessage(`Kayıt başarılı! Hoşgeldin, ${user.email}`);
-        toast.success("Kayıt başarılı!", { position: "bottom-right" });
-        setEmail("");
-        setPassword("");
-        setConfirmPassword("");
-        setName("");
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
-      })
-      .catch((error) => {
-        setRegMessage(error.message);
-        toast.error("Kayıt başarısız!", { position: "bottom-right" });
-      });
-  };
-
-  // Google login
-  const googleSignIn = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const user = result.user;
-        toast.success(`Google ile giriş başarılı: ${user.email}`, {
-          position: "bottom-right",
+          handleAuthSuccess(userCredential.user);
+        } else {
+          handleAuthSuccess(userCredential.user);
+        }
+      } else {
+        // Kayıt ol
+        if (formData.password !== formData.confirmPassword) {
+          throw new Error('Şifreler eşleşmiyor');
+        }
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
+        // Kullanıcı adını güncelle
+        await updateProfile(userCredential.user, {
+          displayName: formData.name
         });
-        navigate("/");
-      })
-      .catch((error) => {
-        toast.error(error.message, { position: "bottom-right" });
+
+        // E-posta doğrulama maili gönder
+        await sendEmailVerification(userCredential.user);
+
+        setMessage({ 
+          text: 'Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın. Doğrulama maili gönderildi.', 
+          type: 'success' 
+        });
+        
+        // İstersen kayıt sonrası otomatik giriş yapma veya giriş ekranına yönlendirme yapabilirsin
+        setIsLogin(true);
+        setLoading(false);
+        setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+      }
+    } catch (error) {
+      setMessage({ 
+        text: error.message.replace('Firebase: ', ''), 
+        type: 'error' 
       });
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setLoading(true);
+      const result = await signInWithPopup(auth, googleProvider);
+
+      if (!result.user.emailVerified) {
+        setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
+      }
+
+      handleAuthSuccess(result.user);
+    } catch (error) {
+      setMessage({ 
+        text: error.message.replace('Firebase: ', ''), 
+        type: 'error' 
+      });
+      setLoading(false);
+    }
+  };
+
+  const handleAuthSuccess = (user) => {
+    setUser({
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName || user.email.split('@')[0],
+      photoURL: user.photoURL
+    });
+    setLoading(false);
+    navigate('/');
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] flex items-center justify-center px-4">
-      <ToastContainer />
-      <div className="max-w-md w-full bg-[#2a2a2a] rounded-lg shadow-lg p-8">
-        {isLogin ? (
-          <>
-            <h2 className="text-4xl font-bold text-white text-center mb-8">
-              Giriş Yap
-            </h2>
-            <form onSubmit={loginSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  E-posta
-                </label>
-                <input
-                  type="email"
-                  placeholder="example@mail.com"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Şifre
-                </label>
-                <input
-                  type="password"
-                  placeholder="Şifreniz"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-amber-500 hover:bg-amber-600 text-gray-900 font-semibold py-3 rounded-md transition-colors duration-300"
-              >
-                Giriş Yap
-              </button>
-            </form>
-            {loginMessage && (
-              <p className="mt-4 text-center text-red-500 font-semibold">
-                {loginMessage}
-              </p>
-            )}
-            <p className="mt-6 text-center text-gray-400">
-              Hesabın yok mu?{" "}
-              <button
-                onClick={() => {
-                  setIsLogin(false);
-                  setLoginMessage("");
-                  setRegMessage("");
-                }}
-                className="text-amber-400 hover:underline"
-              >
-                Kayıt Ol
-              </button>
-            </p>
-          </>
-        ) : (
-          <>
-            <h2 className="text-4xl font-bold text-white text-center mb-8">
-              Kayıt Ol
-            </h2>
-            <form onSubmit={registerSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  İsim
-                </label>
-                <input
-                  type="text"
-                  placeholder="İsminiz"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  E-posta
-                </label>
-                <input
-                  type="email"
-                  placeholder="example@mail.com"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Şifre
-                </label>
-                <input
-                  type="password"
-                  placeholder="Şifreniz"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">
-                  Şifre Tekrar
-                </label>
-                <input
-                  type="password"
-                  placeholder="Şifrenizi tekrar girin"
-                  className="w-full px-4 py-3 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-amber-500 hover:bg-amber-600 text-gray-900 font-semibold py-3 rounded-md transition-colors duration-300"
-              >
-                Kayıt Ol
-              </button>
-            </form>
-            <div className="mt-8 flex flex-col items-center gap-4">
-              <p className="text-gray-400">Ya da</p>
-              <Button
-                variant="outlined"
-                startIcon={<GoogleIcon />}
-                onClick={googleSignIn}
-                sx={{
-                  color: "white",
-                  borderColor: "#fff",
-                  textTransform: "none",
-                  px: 4,
-                  py: 1.5,
-                  width: "100%",
-                  maxWidth: "300px",
-                  "&:hover": {
-                    borderColor: "#ffb800",
-                    backgroundColor: "#ffb800",
-                    color: "#000",
-                  },
-                }}
-              >
-                Google ile Giriş Yap
-              </Button>
-            </div>
-            {regMessage && (
-              <p className="mt-6 text-center text-green-500 font-semibold">
-                {regMessage}
-              </p>
-            )}
-            <p className="mt-6 text-center text-gray-400">
-              Hesabın var mı?{" "}
-              <button
-                onClick={() => {
-                  setIsLogin(true);
-                  setLoginMessage("");
-                  setRegMessage("");
-                }}
-                className="text-amber-400 hover:underline"
-              >
-                Giriş Yap
-              </button>
-            </p>
-          </>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: '#121212',
+        p: 2
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          width: '100%',
+          maxWidth: 500,
+          p: 4,
+          bgcolor: '#1e1e1e',
+          color: 'white'
+        }}
+      >
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom 
+          sx={{ 
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: '#ffb700'
+          }}
+        >
+          {isLogin ? 'Giriş Yap' : 'Hesap Oluştur'}
+        </Typography>
+
+        {message.text && (
+          <Typography
+            color={message.type === 'error' ? 'error' : message.type === 'warning' ? 'warning.main' : 'primary'}
+            sx={{ mb: 2, textAlign: 'center' }}
+          >
+            {message.text}
+          </Typography>
         )}
-      </div>
-    </div>
+
+        <Box 
+          component="form" 
+          onSubmit={handleSubmit}
+          sx={{ mt: 3 }}
+        >
+          {!isLogin && (
+            <TextField
+              fullWidth
+              label="Ad Soyad"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              margin="normal"
+              required
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon color="primary" />
+                  </InputAdornment>
+                )
+              }}
+              sx={{
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }}
+            />
+          )}
+
+          <TextField
+            fullWidth
+            type="email"
+            label="E-posta"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            margin="normal"
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="primary" />
+                </InputAdornment>
+              )
+            }}
+            sx={{
+              '& .MuiInputBase-input': {
+                color: 'white'
+              },
+              '& .MuiInputLabel-root': {
+                color: 'rgba(255, 255, 255, 0.7)'
+              },
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.23)'
+                },
+                '&:hover fieldset': {
+                  borderColor: '#ffb700'
+                }
+              }
+            }}
+          />
+
+          <TextField
+            fullWidth
+            type={showPassword ? 'text' : 'password'}
+            label="Şifre"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            margin="normal"
+            required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
+            sx={{
+              '& .MuiInputBase-input': {
+                color: 'white'
+              },
+              '& .MuiInputLabel-root': {
+                color: 'rgba(255, 255, 255, 0.7)'
+              },
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.23)'
+                },
+                '&:hover fieldset': {
+                  borderColor: '#ffb700'
+                }
+              }
+            }}
+          />
+
+          {!isLogin && (
+            <TextField
+              fullWidth
+              type={showPassword ? 'text' : 'password'}
+              label="Şifre Tekrar"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              margin="normal"
+              required
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockIcon color="primary" />
+                  </InputAdornment>
+                )
+              }}
+              sx={{
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }}
+            />
+          )}
+
+          {isLogin && (
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label="Beni hatırla"
+                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+              />
+              <Button 
+                size="small" 
+                sx={{ color: '#ffb700' }}
+                onClick={() => navigate('/reset-password')}
+              >
+                Şifremi Unuttum
+              </Button>
+            </Box>
+          )}
+
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            sx={{
+              mt: 3,
+              mb: 2,
+              py: 1.5,
+              bgcolor: '#ffb700',
+              color: '#121212',
+              '&:hover': {
+                bgcolor: '#ffa000'
+              }
+            }}
+          >
+            {loading ? 'İşleniyor...' : isLogin ? 'Giriş Yap' : 'Kayıt Ol'}
+          </Button>
+
+          <Divider sx={{ my: 2, color: 'rgba(255,255,255,0.3)' }}>VEYA</Divider>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            onClick={handleGoogleSignIn}
+            sx={{
+              color: 'white',
+              borderColor: 'rgba(255,255,255,0.7)',
+              '&:hover': {
+                borderColor: '#ffb700',
+                color: '#ffb700',
+                bgcolor: 'rgba(255, 183, 0, 0.1)'
+              }
+            }}
+            disabled={loading}
+          >
+            Google ile Giriş Yap
+          </Button>
+
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ mt: 3, color: 'rgba(255, 255, 255, 0.7)' }}
+          >
+            {isLogin ? 'Hesabınız yok mu? ' : 'Zaten hesabınız var mı? '}
+            <Button
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setMessage({ text: '', type: '' });
+              }}
+              sx={{ textTransform: 'none', color: '#ffb700' }}
+            >
+              {isLogin ? 'Kayıt Ol' : 'Giriş Yap'}
+            </Button>
+          </Typography>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 

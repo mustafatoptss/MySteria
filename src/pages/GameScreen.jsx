@@ -4,6 +4,7 @@ import img3 from '../images/img31.jpg';
 import img4 from '../images/img32.jpg';
 import img5 from '../images/img33.jpg';
 import img6 from '../images/img34.jpg';
+import './GameScreen.css'
 
 const items = [
   {

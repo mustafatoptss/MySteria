@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-
 function Footer() {
   const nav = useNavigate();
   return (
-    <footer className="bg-neutral-900 text-white font-['Roboto'] px-10 pt-16 pb-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-neutral-900 text-white font-['Roboto'] px-5 md:px-10 pt-10 md:pt-16 pb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
         {/* 1. Sütun - Mysteria */}
         <div>
-          <h2 className="text-5xl font-bold mb-4">Mysteria</h2>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Mysteria</h2>
+          <p className="text-base md:text-xl text-gray-300 leading-relaxed">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
             voluptate. Minima quasi quod adipisci quia.
           </p>
@@ -18,8 +17,8 @@ function Footer() {
 
         {/* 2. Sütun - Hızlı Menü */}
         <div>
-          <h3 className="text-3xl font-semibold mb-4">Hızlı Menü</h3>
-          <ul className="space-y-3 text-lg text-gray-300">
+          <h3 className="text-2xl md:text-3xl font-semibold mb-3 md:mb-4">Hızlı Menü</h3>
+          <ul className="space-y-2 md:space-y-3 text-base md:text-lg text-gray-300">
             <li>
               <Link to="/" className="hover:text-white transition cursor-pointer">Anasayfa</Link>
             </li>
@@ -32,58 +31,53 @@ function Footer() {
             <li>
               <Link to="/hakkimizda/biz-kimiz" className="hover:text-white transition cursor-pointer">Biz Kimiz</Link>
             </li>
-            <li>
-              <Link to="/hakkimizda/vizyon" className="hover:text-white transition cursor-pointer">Vizyon</Link>
-            </li>
-            <li>
-              <Link to="/hakkimizda/ekibimiz" className="hover:text-white transition cursor-pointer">Ekibimiz</Link>
-            </li>
+           
+            
           </ul>
         </div>
 
         {/* 3. Sütun - İletişim Bilgileri */}
         <div>
-          <h3 className="text-3xl font-semibold mb-4">İletişim</h3>
-          <p className="text-lg text-gray-300 mb-2">📍 Isparta, Türkiye</p>
-          <p className="text-lg text-gray-300 mb-2">✉️ mustafatoptss80@gmail.com</p>
-          <p className="text-lg text-gray-300">📞 +90 555 555 55 55</p>
+          <h3 className="text-2xl md:text-3xl font-semibold mb-3 md:mb-4">İletişim</h3>
+          <p className="text-base md:text-lg text-gray-300 mb-2">📍 Isparta, Türkiye</p>
+          <p className="text-base md:text-lg text-gray-300 mb-2">✉️ mustafatoptss80@gmail.com</p>
+          <p className="text-base md:text-lg text-gray-300">📞 +90 555 555 55 55</p>
         </div>
 
         {/* 4. Sütun - Dava Butonları */}
         <div>
-  <h3 className="text-3xl font-semibold mb-4">Dava Dosyaları</h3>
-
-  <div className="grid grid-cols-2 gap-4 w-80">
-    <button
-      onClick={() => nav('/game')}
-      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
-    >
-      Kayıp Mücevher
-    </button>
-    <button
-      onClick={() => nav('/game')}
-      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
-    >
-      Sisli Şehir
-    </button>
-    <button
-      onClick={() => nav('/game')}
-      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
-    >
-      Sisli Şehir
-    </button>
-    <button
-      onClick={() => nav('/game')}
-      className="bg-transparent hover:bg-gray-600 text-lg px-6 rounded-lg transition duration-200 border h-14 flex items-center justify-center"
-    >
-      Sisli Şehir
-    </button>
-  </div>
-</div>
+          <h3 className="text-2xl md:text-3xl font-semibold mb-3 md:mb-4">Dava Dosyaları</h3>
+          <div className="grid grid-cols-2 gap-3 w-full md:w-80">
+            <button
+              onClick={() => nav('/game')}
+              className="bg-transparent hover:bg-gray-600 text-sm md:text-lg px-3 md:px-6 rounded-lg transition duration-200 border h-10 md:h-14 flex items-center justify-center"
+            >
+              Kayıp Mücevher
+            </button>
+            <button
+              onClick={() => nav('/game')}
+              className="bg-transparent hover:bg-gray-600 text-sm md:text-lg px-3 md:px-6 rounded-lg transition duration-200 border h-10 md:h-14 flex items-center justify-center"
+            >
+              Sisli Şehir
+            </button>
+            <button
+              onClick={() => nav('/game')}
+              className="bg-transparent hover:bg-gray-600 text-sm md:text-lg px-3 md:px-6 rounded-lg transition duration-200 border h-10 md:h-14 flex items-center justify-center"
+            >
+              Gizemli Mektup
+            </button>
+            <button
+              onClick={() => nav('/game')}
+              className="bg-transparent hover:bg-gray-600 text-sm md:text-lg px-3 md:px-6 rounded-lg transition duration-200 border h-10 md:h-14 flex items-center justify-center"
+            >
+              Son Vaka
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Alt Bilgi */}
-      <div className="border-t border-gray-700 mt-12 pt-6 text-center text-base text-gray-500">
+      <div className="border-t border-gray-700 mt-8 md:mt-12 pt-4 md:pt-6 text-center text-sm md:text-base text-gray-500">
         © 2025 Mysteria. Tüm hakları saklıdır.
       </div>
     </footer>

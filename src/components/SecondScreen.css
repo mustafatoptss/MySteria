@@ -1,0 +1,101 @@
+/* SecondScreen.css */
+
+/* Base styles (unchanged for desktop) */
+.secondscreen-container {
+  position: relative;
+}
+
+.secondscreen-left {
+  background: linear-gradient(to right, #000000, #111111);
+}
+
+.secondscreen-bottom {
+  position: relative;
+}
+
+/* Mobile-specific styles (only applied on phone screens) */
+@media only screen and (max-width: 767px) {
+  .secondscreen-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Changed from height:auto to min-height:100vh */
+  }
+
+  /* Force all sections to full width and stack vertically */
+  .secondscreen-container > .flex {
+    flex-direction: column;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Left section (game description) */
+  .secondscreen-left {
+    width: 100% !important;
+    padding: 2rem 1rem;
+    height: auto !important;
+    order: 1;
+    min-height: 30vh; /* Added minimum height */
+  }
+
+  /* Right section (image with text) */
+  .secondscreen-right {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 60vh; /* Increased minimum height */
+    order: 2;
+  }
+
+  /* Bottom section (play button) */
+  .secondscreen-bottom {
+    width: 100% !important;
+    height: 25vh !important; /* Changed from fixed 200px to viewport height */
+    min-height: 150px; /* Minimum height to ensure button visibility */
+    order: 3;
+    margin-top: auto;
+    padding: 1rem 0; /* Added padding */
+  }
+
+  /* Text adjustments for mobile */
+  .secondscreen-left h1 {
+    font-size: 2rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .secondscreen-left p {
+    font-size: 1.2rem !important;
+  }
+
+  .secondscreen-right h2 {
+    font-size: 1.5rem !important;
+  }
+
+  .secondscreen-right p {
+    font-size: 1rem !important;
+    margin-bottom: 1.5rem; /* Slightly reduced margin */
+  }
+
+  .secondscreen-right .text-5xl {
+    font-size: 2.5rem !important;
+    margin-bottom: 1rem !important; /* Reduced margin */
+  }
+
+  .secondscreen-bottom button {
+    font-size: 1.5rem !important;
+    padding: 0.75rem 1.5rem !important;
+    margin: 0 auto; /* Center button */
+  }
+
+  /* Spacing adjustments */
+  .secondscreen-right .max-w-2xl {
+    padding: 1rem;
+  }
+
+  .secondscreen-right .space-y-12 > div {
+    margin-bottom: 1.5rem; /* Reduced spacing between items */
+  }
+
+  /* Reduce the bottom padding for the call-to-action text */
+  .secondscreen-right .pt-10 {
+    padding-top: 1.5rem !important;
+  }
+}

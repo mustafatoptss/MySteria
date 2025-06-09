@@ -1,100 +1,115 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, TextField, Button, Paper } from '@mui/material';
-import { auth, db } from './firebase'; // firebase.js yoluna göre güncelle
-import { doc, getDoc } from 'firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
+import React, { useState } from 'react';
+import { auth } from './firebase'; // firebase.js dosyanın doğru yolunu kullan
+import { createUserWithEmailAndPassword, sendEmailVerification , signOut } from 'firebase/auth';
 
-function Duzenle() {
-  const [userData, setUserData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-  });
+function RegisterForm({ onClose }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
-  useEffect(() => {
-    // Giriş yapan kullanıcıyı dinle
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const docRef = doc(db, 'users', user.uid); // Firestore'da "users" koleksiyonunda UID ile kayıt var
-        const docSnap = await getDoc(docRef);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (docSnap.exists()) {
-          setUserData(docSnap.data());
-        } else {
-          console.log('Kullanıcı verisi bulunamadı.');
-        }
-      }
-    });
+    if (password !== confirm) {
+      alert('Şifreler eşleşmiyor!');
+      return;
+    }
 
-    return () => unsubscribe(); // Component unmount olunca dinlemeyi bırak
-  }, []);
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      // Firebase ile kullanıcı oluştur
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // E-posta doğrulama maili gönder
+      await sendEmailVerification(user);
+
+      await signOut(auth)
+
+      setMessage({
+        type: 'success',
+        text: 'Kayıt başarılı! Lütfen e-posta adresinize gönderilen doğrulama mailini kontrol edin. Doğrulama yapmadan giriş yapamazsınız.'
+      });
+
+      // 3 saniye sonra login ekranına yönlendir
+      setTimeout(() => {
+        onClose();
+      }, 3000);
+
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: error.message
+      });
+    }
+
+    setLoading(false);
+  };
 
   return (
-    <Box
-      sx={{
-        marginTop: '120px',
-        minHeight: 'calc(100vh - 120px)',
-        backgroundColor: '#121212',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        padding: 4,
-      }}
-    >
-      <Paper
-        elevation={5}
-        sx={{
-          padding: 4,
-          width: '400px',
-          backgroundColor: '#1e1e1e',
-          borderRadius: 3,
-          color: 'white',
-        }}
-      >
-        <Typography variant="h5" fontWeight="bold" mb={3}>
-          Profil Bilgileri
-        </Typography>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <h2 className="text-3xl font-bold mb-4">Kayıt Ol</h2>
 
-        <TextField
-          label="İsim"
-          variant="filled"
-          fullWidth
-          value={userData.name}
-          sx={{ mb: 3, input: { color: 'white' }, label: { color: 'lightgray' } }}
-          InputProps={{ disableUnderline: true }}
-        />
-        <TextField
-          label="E-posta"
-          variant="filled"
-          fullWidth
-          value={userData.email}
-          sx={{ mb: 3, input: { color: 'white' }, label: { color: 'lightgray' } }}
-          InputProps={{ disableUnderline: true }}
-        />
-        <TextField
-          label="Telefon"
-          variant="filled"
-          fullWidth
-          value={userData.phone}
-          sx={{ mb: 4, input: { color: 'white' }, label: { color: 'lightgray' } }}
-          InputProps={{ disableUnderline: true }}
-        />
-
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{
-            backgroundColor: 'deepskyblue',
-            fontWeight: 'bold',
-            '&:hover': { backgroundColor: 'dodgerblue' },
-          }}
-          onClick={() => alert('Bilgiler kaydedildi!')}
+      {message && (
+        <div
+          className={`p-3 rounded-md ${
+            message.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
+          }`}
         >
-          Kaydet
-        </Button>
-      </Paper>
-    </Box>
+          {message.text}
+        </div>
+      )}
+
+      <div>
+        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+          disabled={loading}
+        />
+      </div>
+
+      <div>
+        <label className="block text-gray-700 font-semibold mb-2">Şifre:</label>
+        <input
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+          disabled={loading}
+        />
+      </div>
+
+      <div>
+        <label className="block text-gray-700 font-semibold mb-2">Şifre (Tekrar):</label>
+        <input
+          type="password"
+          required
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+          disabled={loading}
+        />
+      </div>
+
+      <button
+        type="submit"
+        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-md transition"
+        disabled={loading}
+      >
+        {loading ? 'Yükleniyor...' : 'Kayıt Ol'}
+      </button>
+    </form>
   );
 }
 
-export default Duzenle;
+export default RegisterForm;
+ 
