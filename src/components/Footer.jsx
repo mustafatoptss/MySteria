@@ -10,8 +10,9 @@ function Footer() {
         <div>
           <h2 className="text-3xl md:text-5xl font-bold mb-3 md:mb-4">Mysteria</h2>
           <p className="text-base md:text-xl text-gray-300 leading-relaxed">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
-            voluptate. Minima quasi quod adipisci quia.
+             Karanlık sokaklarda yankılanan sessiz adımlar… <br />
+          Her detay bir sır, her bakışta bir şüphe gizli <br />
+          MySteria ekibi, gerçeğin izini sürmek için burada.
           </p>
         </div>
 

@@ -20,7 +20,7 @@ function SecondScreen() {
         >
           <div className="text-white">
             <h1 className="text-center text-5xl font-bold mb-8 tracking-wider">
-              DEDEKTİF OYUNU
+             MySteria
             </h1>
             <p className="text-center text-3xl opacity-90">
               Zekanızı test edin, suçluları yakalayın!

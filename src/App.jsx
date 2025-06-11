@@ -26,6 +26,11 @@ import PayScreen from './pages/PayScreen';
 
 // Context
 import { UserProvider, useUser } from './context/UserContext';
+import SisliSehir from './cases/SisliSehir';
+import GizemliMektup from './cases/GizemliMektup';
+import KayipMucevher from './cases/KayipMucevher';
+import KaybolanDedektif from './cases/KaybolanDedektif';
+
 
 const auth = getAuth(app);
 
@@ -69,8 +74,18 @@ function AppContent() {
         <Route path="/hakkimizda/biz-kimiz" element={<BizKimiz />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
         <Route path="/pay" element={<PayScreen />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<LoginPage setUser={setUser} />} />
+
+
+
+        <Route path="/profile" element={<Profile />} />       <Route path="/cases/kayip-mucevher" element={<KayipMucevher />} />
+
+
+
+
+        <Route path="/cases/sisli-sehir-cinayeti" element={<SisliSehir />} />
+        <Route path="/cases/gizemli-mektup" element={<GizemliMektup />} />
+        <Route path="/cases/son-vaka-kaybolan-dedektif" element={<KaybolanDedektif />} />
         <Route
           path="/game"
           element={

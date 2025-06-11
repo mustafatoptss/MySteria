@@ -9,6 +9,6 @@ export default defineConfig({
   ],
   server: {
     host: '0.0.0.0', // Telefonda test için gereklidir
-    port: 5175,       // Dilersen başka port da seçebilirsin
+    port: 5176,       // Dilersen başka port da seçebilirsin
   }
 })

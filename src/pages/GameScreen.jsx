@@ -4,61 +4,61 @@ import img3 from '../images/img31.jpg';
 import img4 from '../images/img32.jpg';
 import img5 from '../images/img33.jpg';
 import img6 from '../images/img34.jpg';
-import './GameScreen.css'
 
 const items = [
   {
     title: 'Kayıp Mücevherin Sırrı',
-    description: 'Zengin bir koleksiyoncunun nadide mücevheri aniden ortadan kaybolur...',
-    pdfName: 'hikaye1.pdf'
+    description: 'Zengin bir koleksiyoncunun nadide mücevheri kaybolur...',
+    content: 'Bu hikayenin detaylı içeriği burada olacak...',
+    pdfName: 'kayip-mucevher.pdf'
   },
   {
     title: 'Sisli Şehir Cinayeti',
-    description: 'Sisler içinde kaybolmuş bir şehirde ünlü bir gazeteci öldürülür...',
-    pdfName: 'sisli-sehir.pdf'
+    description: 'Sisler içinde kaybolmuş şehirde cinayet işlenir...',
+    pdfName: 'sisli-sehir-cinayeti.pdf',
+   
   },
   {
     title: 'Gizemli Mektup',
-    description: 'Bir gece ansızın gelen şifreli bir mektup...',
+    description: 'Bir gece gelen şifreli mektup olayları başlatır...',
     pdfName: 'gizemli-mektup.pdf'
   },
   {
     title: 'Son Vaka: Kaybolan Dedektif',
-    description: 'Tecrübeli bir dedektif gizemli şekilde ortadan kaybolur...',
-    pdfName: 'son-vaka.pdf'
+    description: 'Deneyimli dedektif ortadan kaybolur...',
+    pdfName: 'son-vaka-kaybolan-dedektif.pdf'
   }
 ];
+
+const images = [img3, img4, img5, img6];
 
 function GameScreen() {
   const navigate = useNavigate();
 
-  const handleRedirect = (pdfName) => {
-    navigate('/pay', { state: { pdfName } });
+  const handleRedirect = (item) => {
+      const caseId = item.pdfName.replace('.pdf', '');
+  navigate('/pay', { state: { pdfName: item.pdfName, caseId, caseData: item } });
   };
 
   return (
-    <div className="bg-[#1a1a1a] h-screen grid grid-cols-4 grid-rows-1 mt-3">
-      {[img3, img4, img5, img6].map((img, idx) => (
+    <div className="grid grid-cols-4 h-screen">
+      {items.map((item, idx) => (
         <div
           key={idx}
           style={{
-            backgroundImage: `url(${img})`,
+            backgroundImage: `url(${images[idx]})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
-          className="relative h-screen flex flex-col justify-center items-center text-white font-bold transform transition-transform duration-300 hover:scale-105 cursor-pointer p-6"
+          className="relative p-6 text-white flex flex-col justify-center items-center hover:scale-105 transition-transform cursor-pointer"
         >
-          <div className="max-w-md text-center">
-            <h2 className="text-3xl mb-4 drop-shadow-lg">{items[idx].title}</h2>
-            <p className="text-lg font-normal drop-shadow-lg leading-relaxed">
-              {items[idx].description}
-            </p>
-          </div>
+          <h2 className="text-2xl font-bold mb-4 drop-shadow">{item.title}</h2>
+          <p className="text-md mb-6">{item.description}</p>
           <button
-            onClick={() => handleRedirect(items[idx].pdfName)}
-            className="mt-16 px-6 py-3 bg-transparent hover:bg-black hover:text-white text-white border text-3xl font-semibold rounded-lg shadow-lg transition-colors"
+            onClick={() => handleRedirect(item)}
+            className="bg-black/70 px-5 py-2 rounded-lg"
           >
-            PDF'i İndir
+            PDF Yerine Oyna
           </button>
         </div>
       ))}

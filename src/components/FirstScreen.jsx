@@ -32,7 +32,7 @@ function FirstScreen() {
      
       </div>
 
-      <div className="leading-32 text-8xl mt-10 text-amber-50 ml-15">
+      <div className="leading-32 text-7xl mt-10 text-amber-50 ml-15">
         Sessiz sokaklar <br />
         karanlık sırlar
         <br />
