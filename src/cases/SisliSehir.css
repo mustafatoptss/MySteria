@@ -528,4 +528,158 @@
           background: #444;
           color: #fff;
         }
-      
+
+
+        .page-navigation {
+  display: flex;
+  justify-content: space-between;
+ 
+  align-items: center;
+  margin-top: 30px;
+  padding: 15px 0;
+  border-top: 1px solid #ff5252;
+}
+
+.nav-button {
+  padding: 10px 20px;
+  background-color: #ff5252; /* Koyu kahve rengi */
+  color: #e6ccb2; /* Açık krem rengi */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: #ff5252; /* Hover'da biraz açık kahve */
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* SAYFA GÖSTERGE STİLİ */
+.page-indicator {
+  color: #e6ccb2;
+ 
+}
+      /* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .case-nav {
+    display: none;
+  }
+  
+  .mobile-nav {
+    display: block;
+    margin: 15px auto;
+    width: 90%;
+  }
+  
+  .mobile-select {
+    width: 100%;
+    padding: 10px;
+    background: #1a1a1a;
+    color: #e6ccb2;
+    border: 1px solid #5c3a21;
+    border-radius: 4px;
+    
+  }
+  
+  .case-container {
+    padding: 10px;
+  }
+  
+  .case-file {
+    padding: 15px;
+  }
+  
+  .page-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    border-top: 1px solid #5c3a21;
+  }
+  
+  .nav-button {
+    padding: 8px 15px;
+    background: #5c3a21;
+    color: #e6ccb2;
+    border: none;
+    border-radius: 4px;
+    
+  }
+  
+  .nav-button:disabled {
+    opacity: 0.5;
+  }
+  
+  .page-indicator {
+    color: #e6ccb2;
+    font-family: 'Special Elite', cursive;
+  }
+}
+
+/* Desktop Styles */
+@media (max-width: 768px) {
+  .case-nav {
+    display: none;
+  }
+  
+  .mobile-nav {
+    display: block;
+  }
+  
+  .case-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .case-header h2 {
+    font-size: 1rem;
+  }
+  
+  .case-container {
+    padding: 15px;
+  }
+  
+  .character-profiles,
+  .testimonies,
+  .evidence-board,
+  .mystery-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-navigation {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 26, 26, 0.9);
+    padding: 10px;
+    z-index: 100;
+    border-top: 1px solid #5c3a21;
+  }
+  
+  .nav-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .page-indicator {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none;
+  }
+}

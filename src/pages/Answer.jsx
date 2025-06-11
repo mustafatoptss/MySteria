@@ -95,6 +95,16 @@ Katil:
             className="relative cursor-pointer transition-all duration-300 m-4"
             onClick={(e) => handleEnvelopeClick(env.id, e)}
           >
+            {/* "TIKLA" text in neon style above envelope */}
+            <span
+              className="block absolute top-0 z-50 left-0 w-full text-center text-xl md:text-2xl text-red-950 font-[Special+Elite]"
+              style={{
+                textShadow: '0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000',
+              }}
+            >
+              TIKLA
+            </span>
+
             {/* Zarf PNG */}
             <img
               src={letter}
@@ -141,7 +151,7 @@ Katil:
               </div>
             </div>
 
-            {/* Neon başlık */}
+            {/* Neon başlık - zarfın altında */}
             <span
               className="block mt-[220px] text-center text-xl md:text-3xl text-red-950 font-[Special+Elite]"
               style={{

@@ -38,8 +38,9 @@ const Navbar = ({ onLogout }) => {
     { name: 'Anasayfa', path: '/', icon: <HomeIcon /> },
     { name: 'Hakkımızda', path: '/hakkimizda/biz-kimiz', icon: <InfoIcon /> },
     { name: 'Nasıl Oynanır?', path: '/howtoplay', icon: <GameIcon /> },
-    { name: 'İletişim', path: '/iletisim', icon: <ContactIcon /> },
+
     { name: 'Cevaplar', path: '/answer', icon: <PeopleIcon /> },
+        { name: 'İletişim', path: '/iletisim', icon: <ContactIcon /> },
   ];
 
   const profileMenuItems = [
