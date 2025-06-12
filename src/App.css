@@ -1,8 +1,10 @@
 @import "tailwindcss";
 /* styles.css ya da index.css */
-*{
-  font-size: 10px;
+
+html {
+  font-size: 16px;
 }
+
 
 .roboto-font {
   font-family: 'Roboto', sans-serif !important;

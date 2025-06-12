@@ -11,9 +11,7 @@ export default {
         bebas: ['"Bebas Neue"', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
       },
-       fontSize: {
-      base: '16px',
-    },
+      
     },
   },
   plugins: [],
