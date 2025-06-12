@@ -16,8 +16,6 @@ export default {
       lg: '1.125rem', // 18px
     },
   },
-  corePlugins: {
-     // ÖNEMLİ: Tailwind resetini kapat
-  },
+ 
   plugins: [],
 }
