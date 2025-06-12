@@ -16,6 +16,6 @@ module.exports = {
   },
   plugins: [],
   corePlugins: {
-    preflight: false, // özel css kullanıyorsan true yerine false yap
+    preflight: true, // özel css kullanıyorsan true yerine false yap
   },
 }
