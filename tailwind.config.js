@@ -17,7 +17,7 @@ export default {
     },
   },
   corePlugins: {
-    preflight: false, // ÖNEMLİ: Tailwind resetini kapat
+     // ÖNEMLİ: Tailwind resetini kapat
   },
   plugins: [],
 }
