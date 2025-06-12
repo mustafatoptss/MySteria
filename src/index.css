@@ -16,9 +16,10 @@ body {
   background-color: #1a1a1a;
   color: wheat;
   margin: 0;
-  padding: 10;
+ 
   height: 100%;
   font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }
 
 #root {
