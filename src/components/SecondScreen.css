@@ -1,7 +1,9 @@
 /* SecondScreen.css */
 
 /* Base styles (unchanged for desktop) */
-.secondscreen-container {
+
+@layer utilities{
+  .secondscreen-container {
   position: relative;
 }
 
@@ -99,3 +101,6 @@
     padding-top: 1.5rem !important;
   }
 }
+
+}
+
