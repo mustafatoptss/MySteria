@@ -1,24 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Hand:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Savate:ital,wght@0,200..900;1,200..900&display=swap');
-@import "tailwindcss";
+/* src/index.css veya src/global.css içinde olabilir */
+
+/* Tailwind çekirdek katmanları */
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
+/* Google fontlar */
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Hand:wght@400..700&family=Lora:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Savate:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* Base katmanı: HTML kök stillerini özelleştir */
 @layer base {
   html {
-    font-size: 14px; /* Varsayılan 16px yerine (tüm rem birimleri buna göre küçülür) */
+    font-size: 14px; /* rem birimi baz alınarak küçültüldü */
   }
-}
 
+  body {
+    @apply bg-[#1a1a1a] text-[wheat] m-0 h-full;
+  }
 
-
-
-
-
-html, body, #root {
-  height: 100%;
-  margin: 0;
-}body {
-  background-color: #1a1a1a; /* istediğin sabit renk */
-  margin: 0;
-  height: 100%;
-  color: wheat;
+  html, #root {
+    height: 100%;
+    margin: 0;
+  }
 }
