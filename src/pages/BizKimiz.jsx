@@ -1,4 +1,5 @@
 import React from 'react';
+import './BizKimiz.css'
 
 function BizKimiz() {
   return (
@@ -10,7 +11,7 @@ function BizKimiz() {
         <h1 className="text-5xl font-extrabold mb-8 text-white text-center">Ben Kimim?</h1>
 
         <p className="text-xl leading-relaxed text-gray-300">
-          Merhaba! Ben <strong className="text-[#80610c]">Mustafa İsmail Toptaş</strong>. 
+          Merhaba! Ben <strong className="text-[#e911c5]">Mustafa İsmail Toptaş</strong>. 
           <span className="text-[purple-300] font-medium"> Süleyman Demirel Üniversitesi </span> Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
           Yazılım dünyasına ilgim lise yıllarında başladı ve o zamandan beri bu alana duyduğum heyecan her geçen gün arttı.
         </p>

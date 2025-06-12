@@ -1,8 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",     // src klasörü ve altındaki tüm .jsx dosyaları
   ],
   theme: {
     extend: {
@@ -15,6 +14,6 @@ export default {
   },
   plugins: [],
   corePlugins: {
-    preflight: true, // Temel sıfırlama
+    preflight: false, // özel css kullanıyorsan true yerine false yap
   },
 }

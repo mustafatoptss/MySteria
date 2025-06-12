@@ -49,7 +49,7 @@ function HowToPlay() {
           <div className='mt-12 flex justify-center'>
             <button
               onClick={() => navigate('/game')}
-              className="bg-amber-500 hover:bg-amber-600 text-black font-semibold px-8 py-3 rounded-lg transition duration-300"
+              className="bg-red-600 hover:bg-amber-600 text-black font-semibold px-8 py-3 rounded-lg transition duration-300"
             >
               Oyuna Başla
             </button>
