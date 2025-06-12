@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  corePlugins: {
+    preflight: true // ✅ AÇIK tutun (modern projelerde önerilen)
+  },
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",

@@ -2,11 +2,13 @@
 @import "tailwindcss";
 @tailwind utilities;
 
-
-
-html {
-  font-size: 16px; /* 1rem = 16px olur, Tailwind için ideal */
+@layer base {
+  html {
+    font-size: 14px; /* Varsayılan 16px yerine (tüm rem birimleri buna göre küçülür) */
+  }
 }
+
+
 
 
 
