@@ -2,24 +2,22 @@
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,html}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      fontSize: { // Font boyutlarını sabitle
-        base: '1rem',   // 16px (varsayılan)
-        lg: '1.125rem', // 18px
-        xl: '1.25rem',  // 20px
-      },
-      fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
-        bebas: ['"Bebas Neue"', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
-      },
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'], // Varsayılan font
+      poppins: ['Poppins', 'sans-serif'],
+      lora: ['Lora', 'serif'],
+    },
+    fontSize: {
+      base: '1rem',   // 16px (zorunlu sabit)
+      sm: '0.875rem', // 14px
+      lg: '1.125rem', // 18px
     },
   },
   corePlugins: {
-    preflight: false, // Tarayıcı resetlerini KAPAT (önemli!)
+    preflight: false, // ÖNEMLİ: Tailwind resetini kapat
   },
   plugins: [],
 }
