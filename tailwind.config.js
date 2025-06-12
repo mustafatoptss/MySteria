@@ -12,6 +12,15 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
         lora: ['Lora', 'serif'],
       },
+        fontSize: {
+      xs: '0.6rem',
+      sm: '0.75rem',
+      base: '0.85rem', // ← tüm ".text-base" sınıfı artık daha küçük
+      lg: '1rem',
+      xl: '1.125rem',
+      '2xl': '1.25rem',
+      // diğerleri
+    },
     },
   },
   plugins: [],
