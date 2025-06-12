@@ -14,33 +14,43 @@ function Answer() {
     },
     { 
       id: 2, 
-      title: "Sisli Şehir Cinayeti", 
-      answer: `🔥 Cinayet Açıklaması: Katil(ler) Kim, Nasıl İşledi?
+      title: "🕵️‍♂️ Sisli Şehir'in Gerçekleri", 
+      answer: `
+🔥 Cinayet Açıklaması: Katil(ler) Kim, Nasıl İşledi?
+
 Cinayet, iki kişinin iş birliğiyle planlandı ve uygulandı:
 👉 Elif Yaman (intikam ve proje dosyası motivasyonuyla)
 👉 Tahir Akçay (eski borç ve ortaklık nedeniyle).
 
 🔍 Olay Gecesi Gerçekler
-22:30 – Elif, danışman kimliğiyle konağa geldi. Adem ile özel görüşme yaptı. Elinde, babasının kaybolmasından Adem'i sorumlu tutan kanıtlar vardı. Tartışma büyüdü. Elif, Adem'den ses kaydı tehdidiyle babasının dosyasını istedi. Adem dosyayı vermedi, "Sakın konuşma" mesajını o an gönderdi.
 
-23:40 – Tahir, polis olmanın verdiği yetkiyle konağa girdi. Elektrik panosuyla kısa süreli kesintiyi yarattı (47 saniyelik karanlık) ve içeri gizlice girdi. Adem'in odasına çıkan arka servis merdivenlerini kullandı.
+22:30 – Elif, danışman kimliğiyle konağa geldi. Adem ile özel bir görüşme yaptı. Elinde, babasının kaybolmasından Adem'i sorumlu tutan kanıtlar vardı. Tartışma büyüdü. Elif, Adem'den ses kaydı tehdidiyle babasının dosyasını istedi. Adem dosyayı vermedi, “Sakın konuşma” mesajını o an gönderdi.
 
-23:45 - 00:05 – Adem, içeride Elif'le tartışırken, Tahir kapının iç kilidini "ters manyetik tokayla" içeriden açtı. Elif, Adem'i yüzüne doğru tırnakladı (bilekteki iz bu sırada oluştu). Tahir, Adem'i önce yumrukladı (çürük), sonra kayıp silahla (önceden Elif tarafından alınmış) yakın mesafeden kafasına tek kurşun sıktı.
+23:40 – Tahir, polis olmanın verdiği yetkiyle konağa gizlice girdi. Elektrik panosuyla kısa süreli kesinti yarattı (47 saniyelik karanlık). Arka servis merdivenlerinden Adem’in odasına çıktı.
+
+23:45 - 00:05 – Adem, Elif'le tartışırken, Tahir kapının iç kilidini “ters manyetik tokayla” içeriden açtı. Elif, Adem’i yüzüne doğru tırnakladı (bilekteki iz bu sırada oluştu). Tahir, önce yumrukladı (çürük), sonra kayıp silahla (önceden Elif tarafından temin edilmiş) kafasına tek kurşun sıktı.
 
 🩸 Çelişkiler Açıklanıyor
-Can'ın DNA'sı: O gece Adem'le kavga eden Can değil, eski bir boğuşmanın izi. Kan Adem'e ait ama havludaki kan Elif'e ait (bileği çizildiğinde sildi).
 
-Meral: Masum değil; ilişkisi vardı, ama olay gecesi yalan söylemesi ilişkiyi gizlemek için.
+Can’ın DNA’sı, o gece Adem’le kavga eden Can’a ait değil; eski bir boğuşmanın izleri.
+
+Kanın büyük kısmı Adem’e ait, ancak havluda bulunan kan Elif’e ait (bileğindeki çizik bu sırada oluştu).
+
+Meral masum değil; ilişkisi vardı ancak olay gecesi yalan söylemesi ilişkiyi gizlemek için.
 
 ⚖️ Motivasyonlar
-Elif: Babası Haluk'un ölümünden Adem'i sorumlu tuttu. Aynı zamanda enerji projesiyle kasabanın yok olacağını düşündü.
 
-Tahir: Haluk'un ölümüne istemeden karışmıştı, Adem'le eski suç bağları vardı. Elif tarafından şantajla dahil edildi.
+Elif: Babası Haluk’un ölümünden Adem’i sorumlu tuttu ve enerji projesinin kasabayı yok edeceğine inandı.
+
+Tahir: Haluk’un ölümüne istemeden karışmıştı, Adem’le eski suç bağları vardı ve Elif tarafından şantajla işbirliğine zorlandı.
 
 🧩 Sonuç
 Katil:
 🔪 Elif Yaman – Planın beyni, intikamın taşıyıcısı.
-🛠️ Tahir Akçay – Suikastın teknik destekçisi ve infazı gerçekleştiren kişi.`
+🛠️ Tahir Akçay – Suikastın teknik destekçisi ve infazı gerçekleştiren kişi.
+
+Ve bazen, adalet sadece bir kurşun ve bir sırla karanlıkta yazılır...`
+
     },
     { 
       id: 3, 
