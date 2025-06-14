@@ -15,7 +15,7 @@ function SecondScreen() {
         {/* Sol üst */}
         <div
           onClick={() => navigate('./game')}
-          className="w-full md:w-1/2 flex items-center justify-center px-6 cursor-pointer hover:scale-105 transition-transform duration-300 bg-gradient-to-r from-black to-gray-900"
+          className="w-full md:w-1/2 flex items-center justify-center px-6 cursor-pointer hover:scale-105 transition-transform duration-300 bg-black"
         >
           <div>
             <h1 className="text-center text-3xl font-bold mb-4 tracking-wide">

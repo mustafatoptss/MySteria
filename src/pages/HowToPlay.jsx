@@ -20,7 +20,7 @@ function HowToPlay() {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-5xl md:text-6xl font-bold mb-10 drop-shadow-lg"
+          className="text-2xl md:text-4xl font-bold mb-0 drop-shadow-lg"
         >
           MySteria Nasıl Oynanır?
         </motion.h1>
@@ -29,18 +29,18 @@ function HowToPlay() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 1 }}
-          className="text-lg md:text-xl leading-relaxed text-gray-200 bg-black/60 p-6 md:p-10 rounded-xl shadow-2xl backdrop-blur-md"
+          className="text-md md:text-lg leading-relaxed text-gray-200 bg-black/60 p-6 md:p-10 rounded-xl shadow-2xl backdrop-blur-md"
         >
-        <p className="mb-6 text-2xl">
+        <p className="mb-6 text-xl">
   İstersen tek başına, istersen de takımınla birlikte zamana karşı yarışarak katili en hızlı şekilde bulmaya çalışabilirsin. Çok yakında çıkacak yeni senaryoda ise sen ve arkadaşların şüpheli konumunda olacak, yaşanan gizemli olayları çözerek katili bulan ilk kişi olmaya çalışacaksınız.
 </p>
-<p className="mb-6 text-2xl">
+<p className="mb-6 text-xl">
   MySteria dedektiflik oyunu için ihtiyaç duyduğun tüm materyalleri PDF formatında sana sunuyoruz. Bu belgeleri yazdırıp evde ya da bulunduğun herhangi bir yerde kendi soruşturma odanı oluşturabilirsin.
 </p>
-<p className="mb-6 text-2xl">
+<p className="mb-6 text-xl">
   Yazdırma imkanın yoksa, PDF dosyalarını indirerek dijital ortamda da oyun deneyimini yaşayabilirsin.
 </p>
-<p className="text-2xl">
+<p className="text-xl">
   Hazır olduğunda sana verilen dosyayı dikkatlice incele, ipuçlarını çöz ve ilgili senaryoya ait sayfanın altındaki MySteria sorularını yanıtlayarak vakayı çözmeye çalış.
 </p>
 
