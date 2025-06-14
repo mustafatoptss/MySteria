@@ -11,11 +11,11 @@ function SecondScreen() {
   return (
     <div className="secondscreen-container flex flex-col h-screen bg-black text-white text-base">
       {/* ÜST: Üst bölümler (yarı yarıya) */}
-      <div className="flex flex-col md:flex-row h-1/2">
+      <div className="secondscreen-top flex flex-col md:flex-row md:h-1/2 h-auto">
         {/* Sol üst */}
         <div
           onClick={() => navigate('./game')}
-          className="w-full md:w-1/2 flex items-center justify-center px-6 cursor-pointer hover:scale-105 transition-transform duration-300 bg-black"
+          className="w-full md:w-1/2 flex items-center justify-center px-6 cursor-pointer hover:scale-105 transition-transform duration-300 bg-black py-8 md:py-0"
         >
           <div>
             <h1 className="text-center text-3xl font-bold mb-4 tracking-wide">
@@ -29,16 +29,16 @@ function SecondScreen() {
 
         {/* Sağ üst */}
         <div
-          className="w-full md:w-1/2 relative bg-cover bg-no-repeat bg-center"
+          className="secondscreen-right w-full md:w-1/2 relative bg-cover bg-no-repeat bg-center min-h-[50vh] md:min-h-full"
           style={{ backgroundImage: `url(${bg4})` }}
         >
           <div className="absolute inset-0 bg-black opacity-20"></div>
-          <div className="relative h-full flex flex-col items-center justify-center p-6">
-            <div className="space-y-8 max-w-2xl text-center">
+          <div className="relative flex flex-col items-center justify-center p-4 md:p-6 h-full">
+            <div className="space-y-4 md:space-y-8 max-w-2xl text-center">
               {/* Madde 1 */}
-              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer mt-90">
-                <div className="text-3xl mb-4">🕵️</div>
-                <h2 className="text-xl font-bold mb-2">EKİBİNİ KUR, HAZIRLIK YAP</h2>
+              <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer mt-4 md:mt-0">
+                <div className="text-3xl mb-2 md:mb-4">🕵️</div>
+                <h2 className="text-xl font-bold mb-1 md:mb-2">EKİBİNİ KUR, HAZIRLIK YAP</h2>
                 <p className="text-base leading-relaxed">
                   En kısa sürede davayı kapatmak için seçkin bir ekip kurun, uygun bir
                   mekanda ve karakterinize uygun şekilde giyinerek hazırlanın.
@@ -47,8 +47,8 @@ function SecondScreen() {
 
               {/* Madde 2 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-3xl mb-4">📜</div>
-                <h2 className="text-xl font-bold mb-2">SENARYOYU SEÇ</h2>
+                <div className="text-3xl mb-2 md:mb-4">📜</div>
+                <h2 className="text-xl font-bold mb-1 md:mb-2">SENARYOYU SEÇ</h2>
                 <p className="text-base leading-relaxed">
                   Birbirinden benzersiz, heyecanlı ve gerilimli davalar sizi bekliyor.
                   İster tek başınıza, ister ekibinizle zamana karşı yarışın.
@@ -57,8 +57,8 @@ function SecondScreen() {
 
               {/* Madde 3 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-3xl mb-4">🔍</div>
-                <h2 className="text-xl font-bold mb-2">DAVA DOSYALARINI İNCELE</h2>
+                <div className="text-3xl mb-2 md:mb-4">🔍</div>
+                <h2 className="text-xl font-bold mb-1 md:mb-2">DAVA DOSYALARINI İNCELE</h2>
                 <p className="text-base leading-relaxed">
                   Çözülemeyen sırlar, şifreler ve ipuçları. Tüm dosyalar PDF olarak sizde.
                   Hiçbir detayı atlamadan araştırma yapın.
@@ -67,8 +67,8 @@ function SecondScreen() {
 
               {/* Madde 4 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer">
-                <div className="text-3xl mb-4">⚖️</div>
-                <h2 className="text-xl font-bold mb-2">KATİLİ BUL!</h2>
+                <div className="text-3xl mb-2 md:mb-4">⚖️</div>
+                <h2 className="text-xl font-bold mb-1 md:mb-2">KATİLİ BUL!</h2>
                 <p className="text-base leading-relaxed">
                   "Ne? Nerede? Ne zaman? Neden? Nasıl? ve Kim?" sorularını yanıtlayarak adaletin
                   yerini bulmasını sağlayın.
@@ -76,7 +76,7 @@ function SecondScreen() {
               </div>
 
               {/* Çağrı cümlesi */}
-              <div className="pt-6">
+              <div className="pt-2 md:pt-6">
                 <p className="text-2xl italic font-bold tracking-wider">
                   GERÇEK DEDEKTİF SİZ MİSİNİZ?
                 </p>
@@ -87,15 +87,15 @@ function SecondScreen() {
       </div>
 
       {/* ALT: Sol alt - Görsel ve buton */}
-      <div className="flex h-1/2">
+      <div className="secondscreen-bottom flex h-auto md:h-1/2">
         <div
-          className="w-full md:w-1/2 bg-cover bg-center bg-no-repeat flex items-center justify-center hover:scale-105 transition-transform duration-300"
+          className="w-full md:w-1/2 bg-cover bg-center bg-no-repeat flex items-center justify-center hover:scale-105 transition-transform duration-300 min-h-[30vh] md:min-h-full"
           style={{
             backgroundImage: `url(${left})`,
           }}
         >
           <button
-            className="bg-transparent hover:bg-red-700 text-white text-2xl font-bold py-4 px-10 rounded-xl shadow-lg transition-colors duration-300"
+            className="bg-transparent hover:bg-red-700 text-white text-xl md:text-2xl font-bold py-3 px-8 md:py-4 md:px-10 rounded-xl shadow-lg transition-colors duration-300"
             onClick={() => navigate('/game')}
           >
             Oyuna Başla
