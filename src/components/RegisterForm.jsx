@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { auth } from './firebase'; // firebase.js dosyanın doğru yolunu kullan
-import { createUserWithEmailAndPassword, sendEmailVerification , signOut } from 'firebase/auth';
+import { auth } from './firebase';
+import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
 
 function RegisterForm({ onClose }) {
   const [email, setEmail] = useState('');
@@ -21,21 +21,17 @@ function RegisterForm({ onClose }) {
     setMessage(null);
 
     try {
-      // Firebase ile kullanıcı oluştur
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // E-posta doğrulama maili gönder
       await sendEmailVerification(user);
-
-      await signOut(auth)
+      await signOut(auth);
 
       setMessage({
         type: 'success',
         text: 'Kayıt başarılı! Lütfen e-posta adresinize gönderilen doğrulama mailini kontrol edin. Doğrulama yapmadan giriş yapamazsınız.'
       });
 
-      // 3 saniye sonra login ekranına yönlendir
       setTimeout(() => {
         onClose();
       }, 3000);

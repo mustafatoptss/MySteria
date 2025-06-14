@@ -19,7 +19,7 @@ function FirstScreen() {
 
   return (
     <div className="firstscreen-background">
-      <div className='text-center'>Test Aşaması v1.0.0 / Sadece Sisli Şehir davası aktif</div>
+      <div className='text-center'>Test Aşaması v1.0.0 / Sadece Sisli Şehir davası aktif.Ödeme ekranı test amaçlı rastgele doldurabilirsiniz. /</div>
       <div className="header-overlay">
         <div className="left-logos">
          <a href="https://www.spotify.com" target="_blank" rel="noopener noreferrer">

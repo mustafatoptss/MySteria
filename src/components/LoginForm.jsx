@@ -22,10 +22,8 @@ import {
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
   signInWithPopup, 
   GoogleAuthProvider,
-  updateProfile,
   sendEmailVerification,
   signOut
 } from 'firebase/auth';
@@ -39,10 +37,8 @@ const LoginPage = ({ setUser }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
   const [rememberMe, setRememberMe] = useState(false);
   const [message, setMessage] = useState({ text: '', type: '' });
@@ -54,64 +50,64 @@ const LoginPage = ({ setUser }) => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleResendVerification = async (email, password) => {
+    try {
+      setLoading(true);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(userCredential.user);
+      await signOut(auth);
+      setMessage({ 
+        text: 'Yeni doğrulama maili gönderildi. Lütfen e-postanızı kontrol edin.', 
+        type: 'success' 
+      });
+    } catch (error) {
+      setMessage({ 
+        text: error.message.replace('Firebase: ', ''), 
+        type: 'error' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ text: '', type: '' });
 
     try {
-      if (isLogin) {
-        // Giriş yap
-        const userCredential = await signInWithEmailAndPassword(
-          auth, 
-          formData.email, 
-          formData.password
-        );
-        
-        // Email doğrulama kontrolü
-        if (!userCredential.user.emailVerified) {
-          setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
-          // Yine de kullanıcıyı set ediyoruz ve yönlendiriyoruz
-          await signOut(auth);
-          
-
-          handleAuthSuccess(userCredential.user);
-        } else {
-          handleAuthSuccess(userCredential.user);
-        }
-      } else {
-        // Kayıt ol
-        if (formData.password !== formData.confirmPassword) {
-          throw new Error('Şifreler eşleşmiyor');
-        }
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          formData.email,
-          formData.password
-        );
-        // Kullanıcı adını güncelle
-        await updateProfile(userCredential.user, {
-          displayName: formData.name
-        });
-
-        // E-posta doğrulama maili gönder
-        await sendEmailVerification(userCredential.user);
-
+      const userCredential = await signInWithEmailAndPassword(
+        auth, 
+        formData.email, 
+        formData.password
+      );
+      
+      await userCredential.user.reload();
+      const updatedUser = auth.currentUser;
+      
+      if (!updatedUser.emailVerified) {
+        await signOut(auth);
         setMessage({ 
-          text: 'Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın. Doğrulama maili gönderildi.', 
-          type: 'success' 
+          text: 'E-posta doğrulaması yapılmamış. Lütfen e-postanızı kontrol edin.', 
+          type: 'warning' 
         });
-        
-        // İstersen kayıt sonrası otomatik giriş yapma veya giriş ekranına yönlendirme yapabilirsin
-        setIsLogin(true);
-        setLoading(false);
-        setFormData({ name: '', email: '', password: '', confirmPassword: '' });
+        return;
       }
+      
+      setUser({
+        uid: updatedUser.uid,
+        email: updatedUser.email,
+        displayName: updatedUser.displayName || updatedUser.email.split('@')[0],
+        photoURL: updatedUser.photoURL || ''
+      });
+      
+      navigate('/');
     } catch (error) {
       setMessage({ 
         text: error.message.replace('Firebase: ', ''), 
         type: 'error' 
       });
+    } finally {
       setLoading(false);
     }
   };
@@ -120,30 +116,23 @@ const LoginPage = ({ setUser }) => {
     try {
       setLoading(true);
       const result = await signInWithPopup(auth, googleProvider);
-
-      if (!result.user.emailVerified) {
-        setMessage({ text: 'E-posta doğrulaması yapılmamıştır.', type: 'warning' });
-      }
-
-      handleAuthSuccess(result.user);
+      
+      setUser({
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: result.user.displayName || result.user.email.split('@')[0],
+        photoURL: result.user.photoURL || ''
+      });
+      
+      navigate('/');
     } catch (error) {
       setMessage({ 
         text: error.message.replace('Firebase: ', ''), 
         type: 'error' 
       });
+    } finally {
       setLoading(false);
     }
-  };
-
-  const handleAuthSuccess = (user) => {
-    setUser({
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName || user.email.split('@')[0],
-      photoURL: user.photoURL
-    });
-    setLoading(false);
-    navigate('/');
   };
 
   return (
@@ -177,7 +166,7 @@ const LoginPage = ({ setUser }) => {
             color: '#ffb700'
           }}
         >
-          {isLogin ? 'Giriş Yap' : 'Hesap Oluştur'}
+          Giriş Yap
         </Typography>
 
         {message.text && (
@@ -189,46 +178,24 @@ const LoginPage = ({ setUser }) => {
           </Typography>
         )}
 
+        {message.type === 'warning' && (
+          <Button
+            fullWidth
+            variant="outlined"
+            color="warning"
+            onClick={() => handleResendVerification(formData.email, formData.password)}
+            disabled={loading}
+            sx={{ mb: 2 }}
+          >
+            Doğrulama Mailini Yeniden Gönder
+          </Button>
+        )}
+
         <Box 
           component="form" 
           onSubmit={handleSubmit}
           sx={{ mt: 3 }}
         >
-          {!isLogin && (
-            <TextField
-              fullWidth
-              label="Ad Soyad"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              margin="normal"
-              required
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <PersonIcon color="primary" />
-                  </InputAdornment>
-                )
-              }}
-              sx={{
-                '& .MuiInputBase-input': {
-                  color: 'white'
-                },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)'
-                },
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'rgba(255, 255, 255, 0.23)'
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#ffb700'
-                  }
-                }
-              }}
-            />
-          )}
-
           <TextField
             fullWidth
             type="email"
@@ -307,64 +274,26 @@ const LoginPage = ({ setUser }) => {
             }}
           />
 
-          {!isLogin && (
-            <TextField
-              fullWidth
-              type={showPassword ? 'text' : 'password'}
-              label="Şifre Tekrar"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              margin="normal"
-              required
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LockIcon color="primary" />
-                  </InputAdornment>
-                )
-              }}
-              sx={{
-                '& .MuiInputBase-input': {
-                  color: 'white'
-                },
-                '& .MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)'
-                },
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: 'rgba(255, 255, 255, 0.23)'
-                  },
-                  '&:hover fieldset': {
-                    borderColor: '#ffb700'
-                  }
-                }
-              }}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  color="primary"
+                />
+              }
+              label="Beni hatırla"
+              sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
             />
-          )}
-
-          {isLogin && (
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                    color="primary"
-                  />
-                }
-                label="Beni hatırla"
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-              />
-              <Button 
-                size="small" 
-                sx={{ color: '#ffb700' }}
-                onClick={() => navigate('/reset-password')}
-              >
-                Şifremi Unuttum
-              </Button>
-            </Box>
-          )}
+            <Button 
+              size="small" 
+              sx={{ color: '#ffb700' }}
+              onClick={() => navigate('/reset-password')}
+            >
+              Şifremi Unuttum
+            </Button>
+          </Box>
 
           <Button
             fullWidth
@@ -382,7 +311,7 @@ const LoginPage = ({ setUser }) => {
               }
             }}
           >
-            {loading ? 'İşleniyor...' : isLogin ? 'Giriş Yap' : 'Kayıt Ol'}
+            {loading ? 'İşleniyor...' : 'Giriş Yap'}
           </Button>
 
           <Divider sx={{ my: 2, color: 'rgba(255,255,255,0.3)' }}>VEYA</Divider>
@@ -405,23 +334,6 @@ const LoginPage = ({ setUser }) => {
           >
             Google ile Giriş Yap
           </Button>
-
-          <Typography
-            variant="body2"
-            align="center"
-            sx={{ mt: 3, color: 'rgba(255, 255, 255, 0.7)' }}
-          >
-            {isLogin ? 'Hesabınız yok mu? ' : 'Zaten hesabınız var mı? '}
-            <Button
-              onClick={() => {
-                setIsLogin(!isLogin);
-                setMessage({ text: '', type: '' });
-              }}
-              sx={{ textTransform: 'none', color: '#ffb700' }}
-            >
-              {isLogin ? 'Kayıt Ol' : 'Giriş Yap'}
-            </Button>
-          </Typography>
         </Box>
       </Paper>
     </Box>

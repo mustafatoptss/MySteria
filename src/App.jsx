@@ -38,15 +38,25 @@ function AppContent() {
   const { setUser } = useUser();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("Kullanıcı giriş yaptı:", user.email);
-        setUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName || user.email.split('@')[0],
-          photoURL: user.photoURL || '',
-        });
+        // Kullanıcıyı yeniden yükle (emailVerified durumu için)
+        await user.reload();
+        const updatedUser = auth.currentUser;
+        
+        if (updatedUser.emailVerified) {
+          console.log("Doğrulanmış kullanıcı giriş yaptı:", updatedUser.email);
+          setUser({
+            uid: updatedUser.uid,
+            email: updatedUser.email,
+            displayName: updatedUser.displayName || updatedUser.email.split('@')[0],
+            photoURL: updatedUser.photoURL || ''
+          });
+        } else {
+          console.log("Doğrulanmamış kullanıcı oturum açmaya çalıştı");
+          await signOut(auth);
+          setUser(null);
+        }
       } else {
         console.log("Kullanıcı çıkış yaptı");
         setUser(null);
@@ -54,7 +64,9 @@ function AppContent() {
     });
 
     return () => unsubscribe();
-  }, [setUser]);
+  }, []);
+
+   
 
   const handleLogout = async () => {
     try {
