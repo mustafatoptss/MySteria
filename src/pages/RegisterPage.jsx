@@ -1,110 +1,351 @@
-import React, { useState } from 'react';
-import { auth } from './firebase';
-import { createUserWithEmailAndPassword, sendEmailVerification, signOut } from 'firebase/auth';
+import React, { useState, useContext } from 'react';
+import { 
+  Button, 
+  TextField, 
+  Typography, 
+  Box, 
+  Paper, 
+  Divider, 
+  IconButton,
+  InputAdornment
+} from '@mui/material';
+import {
+  Google as GoogleIcon,
+  Visibility,
+  VisibilityOff,
+  Email as EmailIcon,
+  Lock as LockIcon,
+  Person as PersonIcon
+} from '@mui/icons-material';
+import { 
+  auth,
+  googleProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut
+} from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
-function RegisterForm({ onClose }) {
+function RegisterPage() {
+  const { setUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirm, setConfirm] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState({ text: '', type: '' });
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    if (password !== confirm) {
-      alert('Şifreler eşleşmiyor!');
+    
+    if (password !== confirmPassword) {
+      setMessage({ text: 'Şifreler eşleşmiyor!', type: 'error' });
       return;
     }
 
     setLoading(true);
-    setMessage(null);
-
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await sendEmailVerification(user);
+      await sendEmailVerification(userCredential.user);
       await signOut(auth);
-
-      setMessage({
-        type: 'success',
-        text: 'Kayıt başarılı! Lütfen e-posta adresinize gönderilen doğrulama mailini kontrol edin. Doğrulama yapmadan giriş yapamazsınız.'
+      
+      setMessage({ 
+        text: 'Kayıt başarılı! Lütfen e-postanızı doğrulayın. Doğrulama linki gönderildi.', 
+        type: 'success' 
       });
-
-      setTimeout(() => {
-        onClose();
-      }, 3000);
-
+      
+      setTimeout(() => navigate('/login'), 3000);
     } catch (error) {
-      setMessage({
-        type: 'error',
-        text: error.message
+      setMessage({ 
+        text: error.message.replace('Firebase: ', ''), 
+        type: 'error' 
       });
+    } finally {
+      setLoading(false);
     }
+  };
 
-    setLoading(false);
+  const handleGoogleRegister = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      setUser({
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: result.user.displayName || result.user.email.split('@')[0],
+        photoURL: result.user.photoURL || ''
+      });
+      navigate('/');
+    } catch (error) {
+      setMessage({ 
+        text: error.message.replace('Firebase: ', ''), 
+        type: 'error' 
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const goToLogin = () => {
+    navigate('/login');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <h2 className="text-3xl font-bold mb-4">Kayıt Ol</h2>
-
-      {message && (
-        <div
-          className={`p-3 rounded-md ${
-            message.type === 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
-
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-          disabled={loading}
-        />
-      </div>
-
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">Şifre:</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-          disabled={loading}
-        />
-      </div>
-
-      <div>
-        <label className="block text-gray-700 font-semibold mb-2">Şifre (Tekrar):</label>
-        <input
-          type="password"
-          required
-          value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-          disabled={loading}
-        />
-      </div>
-
-      <button
-        type="submit"
-        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 rounded-md transition"
-        disabled={loading}
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: '#121212',
+        p: 2
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          width: '100%',
+          maxWidth: 500,
+          p: 4,
+          bgcolor: '#1e1e1e',
+          color: 'white'
+        }}
       >
-        {loading ? 'Yükleniyor...' : 'Kayıt Ol'}
-      </button>
-    </form>
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          gutterBottom 
+          sx={{ 
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: '#ffb700'
+          }}
+        >
+          Kayıt Ol
+        </Typography>
+
+        {message.text && (
+          <Typography
+            color={message.type === 'error' ? 'error' : 'success'}
+            sx={{ mb: 2, textAlign: 'center' }}
+          >
+            {message.text}
+          </Typography>
+        )}
+
+        <Box 
+          component="form" 
+          onSubmit={handleRegister}
+          sx={{ mt: 3 }}
+        >
+          <TextField
+            fullWidth
+            label="Ad Soyad"
+            margin="normal"
+            required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <PersonIcon color="primary" />
+                </InputAdornment>
+              ),
+              sx: {
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            margin="normal"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailIcon color="primary" />
+                </InputAdornment>
+              ),
+              sx: {
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="Şifre"
+            type={showPassword ? 'text' : 'password'}
+            margin="normal"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+              sx: {
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="Şifre Tekrar"
+            type={showPassword ? 'text' : 'password'}
+            margin="normal"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon color="primary" />
+                </InputAdornment>
+              ),
+              sx: {
+                '& .MuiInputBase-input': {
+                  color: 'white'
+                },
+                '& .MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)'
+                },
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.23)'
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#ffb700'
+                  }
+                }
+              }
+            }}
+          />
+
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            sx={{
+              mt: 3,
+              mb: 2,
+              py: 1.5,
+              bgcolor: '#ffb700',
+              color: '#121212',
+              '&:hover': {
+                bgcolor: '#ffa000'
+              }
+            }}
+          >
+            {loading ? 'Kayıt Olunuyor...' : 'Kayıt Ol'}
+          </Button>
+
+          <Divider sx={{ my: 2, color: 'rgba(255,255,255,0.3)' }}>VEYA</Divider>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            onClick={handleGoogleRegister}
+            disabled={loading}
+            sx={{
+              color: 'white',
+              borderColor: 'rgba(255,255,255,0.7)',
+              '&:hover': {
+                borderColor: '#ffb700',
+                color: '#ffb700',
+                bgcolor: 'rgba(255, 183, 0, 0.1)'
+              }
+            }}
+          >
+            Google ile Kayıt Ol
+          </Button>
+
+          <Typography
+            variant="body2"
+            align="center"
+            sx={{ mt: 3, color: 'rgba(255, 255, 255, 0.7)' }}
+          >
+            Zaten hesabınız var mı?{' '}
+            <Button
+              onClick={goToLogin}
+              color="primary"
+              size="small"
+              sx={{ 
+                color: '#ffb700',
+                textTransform: 'none'
+              }}
+            >
+              Giriş Yapın
+            </Button>
+          </Typography>
+        </Box>
+      </Paper>
+    </Box>
   );
 }
 
-export default RegisterForm;
+export default RegisterPage;

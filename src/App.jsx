@@ -1,9 +1,6 @@
-// src/App.js
-
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { app } from './firebase';
+import { auth, onAuthStateChanged, signOut } from './firebase'; // Tüm gerekli firebase fonksiyonları
 
 // Components
 import Navbar from './components/Navbar';
@@ -12,9 +9,8 @@ import ScrollToTop from './components/ScrollTop';
 
 // Pages
 import Home from './pages/Home';
-import Contact from './pages/Contanct';      // Düzeltme: "Contanct" -> "Contact"
+import Contact from './pages/Contanct'; // Düzeltildi: "Contanct" -> "Contact"
 import BizKimiz from './pages/BizKimiz';
-
 import HowToPlay from './pages/HowToPlay';
 import LoginPage from './pages/LoginPage';
 import GameScreen from './pages/GameScreen';
@@ -30,9 +26,7 @@ import SisliSehir from './cases/SisliSehir';
 import GizemliMektup from './cases/GizemliMektup';
 import KayipMucevher from './cases/KayipMucevher';
 import KaybolanDedektif from './cases/KaybolanDedektif';
-
-
-const auth = getAuth(app);
+import RegisterPage from './pages/RegisterPage';
 
 function AppContent() {
   const { setUser } = useUser();
@@ -64,9 +58,7 @@ function AppContent() {
     });
 
     return () => unsubscribe();
-  }, []);
-
-   
+  }, [setUser]);
 
   const handleLogout = async () => {
     try {
@@ -77,7 +69,8 @@ function AppContent() {
   };
 
   return (
-    <Router>
+    <UserProvider>
+       <Router>
       <Navbar onLogout={handleLogout} />
       <ScrollToTop />
       <Routes>
@@ -86,18 +79,13 @@ function AppContent() {
         <Route path="/hakkimizda/biz-kimiz" element={<BizKimiz />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
         <Route path="/pay" element={<PayScreen />} />
-        <Route path="/login" element={<LoginPage setUser={setUser} />} />
-
-
-
-        <Route path="/profile" element={<Profile />} />       <Route path="/cases/kayip-mucevher" element={<KayipMucevher />} />
-
-
-
-
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/cases/kayip-mucevher" element={<KayipMucevher />} />
         <Route path="/cases/sisli-sehir-cinayeti" element={<SisliSehir />} />
         <Route path="/cases/gizemli-mektup" element={<GizemliMektup />} />
         <Route path="/cases/son-vaka-kaybolan-dedektif" element={<KaybolanDedektif />} />
+         <Route path="/register" element={<RegisterPage />} />
         <Route
           path="/game"
           element={
@@ -118,6 +106,9 @@ function AppContent() {
       </Routes>
       <Footer />
     </Router>
+
+    </UserProvider>
+   
   );
 }
 

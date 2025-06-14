@@ -1,11 +1,7 @@
-// src/context/UserContext.jsx
-
 import React, { createContext, useContext, useState } from 'react';
 
-// 1. Context oluşturuluyor
 const UserContext = createContext();
 
-// 2. Provider bileşeni tanımlanıyor
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -16,7 +12,6 @@ export const UserProvider = ({ children }) => {
   );
 };
 
-// 3. Custom Hook tanımı
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
