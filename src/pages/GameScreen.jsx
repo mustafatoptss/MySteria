@@ -41,7 +41,7 @@ function GameScreen() {
   };
 
   return (
-    <div className="grid grid-cols-4 h-screen">
+   <div className="grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-1 h-screen">
       {items.map((item, idx) => (
         <div
           key={idx}

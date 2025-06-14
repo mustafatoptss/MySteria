@@ -7,15 +7,15 @@ function Answer() {
   const containerRef = useRef(null);
 
   const envelopes = [
-    { 
-      id: 1, 
-      title: "Dava 1", 
-      answer: "Katil, kurbanın en yakın arkadaşıydı. Saat 23:00'te güvenlik kamerasında görülmüştür." 
+    {
+      id: 1,
+      title: "Dava 1",
+      answer: "Katil, kurbanın en yakın arkadaşıydı. Saat 23:00'te güvenlik kamerasında görülmüştür."
     },
-    { 
-      id: 2, 
-      title: "Sisli Şehir", 
-      answer: `
+    {
+      id: 2,
+      title: "Sisli Şehir",
+          answer: `
 🔥 Cinayet Açıklaması: Katil(ler) Kim, Nasıl İşledi?
 
 Cinayet, iki kişinin iş birliğiyle planlandı ve uygulandı:
@@ -52,15 +52,15 @@ Katil:
 Ve bazen, adalet sadece bir kurşun ve bir sırla karanlıkta yazılır...`
 
     },
-    { 
-      id: 3, 
-      title: "Dava 3", 
-      answer: "Zehir, kurbanın en sevdiği kahve markasına enjekte edilmişti. Katil kahve satıcısıydı." 
+    {
+      id: 3,
+      title: "Dava 3",
+      answer: "Zehir, kurbanın en sevdiği kahve markasına enjekte edilmişti. Katil kahve satıcısıydı."
     },
-    { 
-      id: 4, 
-      title: "Dava 4", 
-      answer: "Şantajcı, kurbanın eski üniversite oda arkadaşı çıktı. Aralarındaki eski bir fotoğrafı kullanmıştı." 
+    {
+      id: 4,
+      title: "Dava 4",
+      answer: "Şantajcı, kurbanın eski üniversite oda arkadaşı çıktı. Aralarındaki eski bir fotoğrafı kullanmıştı."
     }
   ];
 
@@ -77,87 +77,80 @@ Ve bazen, adalet sadece bir kurşun ve bir sırla karanlıkta yazılır...`
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [openedEnvelope]);
 
   return (
-    <div 
-      className="min-h-screen bg-[#1a1a1a] py-12 px-4 font-[serif]"
-      ref={containerRef}
-    >
+    <div className="min-h-screen bg-[#1a1a1a] py-10 px-4 font-[serif]" ref={containerRef}>
       <h1
+        className="text-3xl sm:text-5xl md:text-7xl font-bold text-center mb-8 sm:mb-12 text-red-950 font-[Special+Elite]"
         style={{
           textShadow: '0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000',
         }}
-        className="text-4xl md:text-7xl font-bold text-center mb-12 text-red-950 font-[Special+Elite]"
       >
         Davalar Arşivi
       </h1>
-      <p className='text-center text-red-600 text-lg'>Gerçekleri Görmek İçin Zarfa Tıklayın</p>
+      <p className="text-center text-red-600 text-base sm:text-lg mb-8">Gerçekleri Görmek İçin Zarfa Tıklayın</p>
 
-      <div className="flex justify-center items-center gap-8 md:gap-16 max-w-full mt-12 md:mt-36 mx-auto flex-wrap">
+      <div className="flex justify-center items-center gap-6 sm:gap-10 flex-wrap">
         {envelopes.map((env, index) => (
           <div
             key={env.id}
             ref={el => envelopeRefs.current[index] = el}
-            style={{ width: '300px', height: '200px' }}
-            className="relative cursor-pointer transition-all duration-300 m-4"
             onClick={(e) => handleEnvelopeClick(env.id, e)}
+            className="relative cursor-pointer transition-all duration-300 w-[90vw] sm:w-[300px] h-[180px] sm:h-[200px] m-2 sm:m-4"
           >
-            {/* "TIKLA" text in neon style above envelope */}
-        
-
             {/* Zarf PNG */}
             <img
               src={letter}
               alt="Zarf"
-              className={`absolute top-0 left-0 w-full h-full object-cover transition-all duration-500 
-                ${openedEnvelope === env.id ? 'opacity-50' : 'opacity-100'}`}
+              className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
+                openedEnvelope === env.id ? 'opacity-40' : 'opacity-100'
+              }`}
               style={{ zIndex: 2 }}
             />
 
-            {/* Zarf iç kısmı */}
+            {/* Zarf alt kısmı */}
             <div
-              className={`absolute bottom-0 w-full rounded-b-lg border border-stone-600 transition-all duration-500 
-                ${openedEnvelope === env.id ? 'h-1/2' : 'h-full'}`}
+              className={`absolute bottom-0 w-full rounded-b-lg border border-stone-600 transition-all duration-500 ${
+                openedEnvelope === env.id ? 'h-1/2' : 'h-full'
+              }`}
               style={{
                 backgroundImage: `url('https://www.transparenttextures.com/patterns/old-paper.png')`,
                 backgroundColor: '#e6ccb2',
                 backgroundBlendMode: 'multiply',
-                zIndex: 1
+                zIndex: 1,
               }}
             ></div>
 
-            {/* Büyük kağıt */}
+            {/* Açılan bilgi kutusu */}
             <div
-              className={`fixed md:absolute shadow-lg rounded-lg p-4 md:p-6 border border-stone-400 transition-all duration-500 
-                ${openedEnvelope === env.id ?
-                  'opacity-100 w-[90vw] md:w-[150%] h-[80vh] md:h-[250%] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] md:-top-20 md:-left-[25%] md:translate-x-0 md:translate-y-0 z-50' :
-                  'opacity-0 w-0 h-0 top-1/2 left-1/2'}`}
-              style={{
-                backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')`,
-                backgroundColor: '#f3eacb',
-                backgroundBlendMode: 'multiply',
-                overflowY: 'auto',
-                maxHeight: 'none'
-              }}
+              className={`fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 ${
+                openedEnvelope === env.id ? 'opacity-100 visible' : 'opacity-0 invisible'
+              }`}
             >
-              <h3 className="text-red-950 font-bold text-xl md:text-2xl mb-4 font-[Special+Elite]">
-                {env.title} Çözümü
-              </h3>
-              <pre className="text-stone-700 text-sm md:text-lg font-[serif] whitespace-pre-wrap">
-                {env.answer}
-              </pre>
-              <div className="absolute bottom-4 right-4 text-sm text-gray-500">
-                {new Date().toLocaleDateString()}
+              <div
+                className="bg-[#f3eacb] border border-stone-400 shadow-2xl rounded-lg p-4 sm:p-6 w-[90vw] max-w-3xl h-[80vh] overflow-y-auto relative"
+                style={{
+                  backgroundImage: `url('https://www.transparenttextures.com/patterns/paper-fibers.png')`,
+                  backgroundBlendMode: 'multiply',
+                }}
+              >
+                <h3 className="text-red-950 font-bold text-xl sm:text-2xl mb-4 font-[Special+Elite]">
+                  {env.title} Çözümü
+                </h3>
+                <pre className="text-stone-700 text-sm sm:text-base whitespace-pre-wrap">
+                  {env.answer}
+                </pre>
+                <div className="absolute bottom-4 right-4 text-xs text-gray-500">
+                  {new Date().toLocaleDateString()}
+                </div>
               </div>
             </div>
 
-            {/* Neon başlık - zarfın altında */}
+            {/* Başlık */}
             <span
-              className="block mt-[220px] text-center text-xl md:text-3xl text-red-950 font-[Special+Elite]"
+              className="block mt-[190px] sm:mt-[220px] text-center text-lg sm:text-2xl text-red-950 font-[Special+Elite]"
               style={{
                 textShadow: '0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000',
               }}

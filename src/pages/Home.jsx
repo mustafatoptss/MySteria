@@ -5,6 +5,7 @@ import Slide from 'react-reveal/Slide';
 import FirstScreen from '../components/FirstScreen';
 import SecondScreen from '../components/SecondScreen';
 
+
 function Home() {
   // Ref ve görünürlük kontrolü
   const { ref, inView } = useInView({
@@ -27,6 +28,9 @@ function Home() {
           // Eğer görünür değilse boş div ya da null olabilir
           <div style={{ height: '300px' }}></div>
         )}
+      </div>
+      <div>
+       
       </div>
     </div>
   );
