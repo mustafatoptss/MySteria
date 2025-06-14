@@ -36,7 +36,7 @@
     .secondscreen-right,
     .secondscreen-container > .flex > div:nth-child(2) {
       width: 100%;
-      padding: 1.5rem 1rem;
+      padding: 1.4rem 1rem;
       min-height: 60vh;
       order: 2;
     }
