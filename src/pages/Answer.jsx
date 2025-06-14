@@ -14,7 +14,7 @@ function Answer() {
     },
     { 
       id: 2, 
-      title: "🕵️‍♂️ Sisli Şehir'in Gerçekleri", 
+      title: "Sisli Şehir", 
       answer: `
 🔥 Cinayet Açıklaması: Katil(ler) Kim, Nasıl İşledi?
 
@@ -95,6 +95,7 @@ Ve bazen, adalet sadece bir kurşun ve bir sırla karanlıkta yazılır...`
       >
         Davalar Arşivi
       </h1>
+      <p className='text-center text-red-600 text-lg'>Gerçekleri Görmek İçin Zarfa Tıklayın</p>
 
       <div className="flex justify-center items-center gap-8 md:gap-16 max-w-full mt-12 md:mt-36 mx-auto flex-wrap">
         {envelopes.map((env, index) => (
@@ -106,14 +107,7 @@ Ve bazen, adalet sadece bir kurşun ve bir sırla karanlıkta yazılır...`
             onClick={(e) => handleEnvelopeClick(env.id, e)}
           >
             {/* "TIKLA" text in neon style above envelope */}
-            <span
-              className="block absolute top-0 z-50 left-0 w-full text-center text-xl md:text-2xl text-red-950 font-[Special+Elite]"
-              style={{
-                textShadow: '0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000',
-              }}
-            >
-              TIKLA
-            </span>
+        
 
             {/* Zarf PNG */}
             <img

@@ -95,7 +95,7 @@ function SecondScreen() {
           }}
         >
           <button
-            className="bg-red-600 hover:bg-red-700 text-white text-2xl font-bold py-4 px-10 rounded-xl shadow-lg transition-colors duration-300"
+            className="bg-transparent hover:bg-red-700 text-white text-2xl font-bold py-4 px-10 rounded-xl shadow-lg transition-colors duration-300"
             onClick={() => navigate('/game')}
           >
             Oyuna Başla

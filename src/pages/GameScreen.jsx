@@ -7,24 +7,24 @@ import img6 from '../images/img34.jpg';
 
 const items = [
   {
-    title: 'Kayıp Mücevherin Sırrı',
+    title: 'Kayıp Mücevherin Sırrı / Aktif Değil',
     description: 'Zengin bir koleksiyoncunun nadide mücevheri kaybolur...',
     content: 'Bu hikayenin detaylı içeriği burada olacak...',
     pdfName: 'kayip-mucevher.pdf'
   },
   {
-    title: 'Sisli Şehir Cinayeti',
+    title: 'Sisli Şehir Cinayeti / Aktif',
     description: 'Sisler içinde kaybolmuş şehirde cinayet işlenir...',
     pdfName: 'sisli-sehir-cinayeti.pdf',
    
   },
   {
-    title: 'Gizemli Mektup',
+    title: 'Gizemli Mektup / Aktif Değil',
     description: 'Bir gece gelen şifreli mektup olayları başlatır...',
     pdfName: 'gizemli-mektup.pdf'
   },
   {
-    title: 'Son Vaka: Kaybolan Dedektif',
+    title: 'Kaybolan Dedektif / Aktif Değil',
     description: 'Deneyimli dedektif ortadan kaybolur...',
     pdfName: 'son-vaka-kaybolan-dedektif.pdf'
   }
@@ -56,9 +56,9 @@ function GameScreen() {
           <p className="text-md mb-6">{item.description}</p>
           <button
             onClick={() => handleRedirect(item)}
-            className="bg-black/70 px-5 py-2 rounded-lg"
+            className="bg-black/70 px-5 py-2 rounded-lg hover:bg-red-700 font-semibold"
           >
-            PDF Yerine Oyna
+            Oyna
           </button>
         </div>
       ))}

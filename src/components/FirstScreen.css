@@ -72,18 +72,19 @@
 
 }
 .playbtn button{
-  width: 300px;
-  height: 80px;
+  width: 230px;
+  height: 70px;
   background-color: #dba50e;
   font-size: 30px;
   color: #242323;
   border-radius: 16px;
+  font-weight: 800;
   
 }
 
 .playbtn button:hover{
   background-color: black;
-  color: rgba(255, 0, 0, 0.356);
+  color: rgba(240, 8, 8, 0.356);
 
   
 }
