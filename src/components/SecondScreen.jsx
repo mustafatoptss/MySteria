@@ -28,12 +28,18 @@ function SecondScreen() {
         </div>
 
         {/* Sağ üst */}
-        <div
-          className="secondscreen-right w-full md:w-1/2 relative bg-cover bg-no-repeat bg-center min-h-[50vh] md:min-h-full"
-          style={{ backgroundImage: `url(${bg4})` }}
-        >
+       <div
+  className="secondscreen-right w-full md:w-1/2 relative bg-cover bg-no-repeat bg-center min-h-[100vh] md:min-h-screen"
+  style={{
+    backgroundImage: `url(${bg4})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    height: '100vh',
+    backgroundAttachment: 'scroll', // İsteğe bağlı: 'fixed' yerine scroll önerilir
+  }}
+>
           <div className="absolute inset-0 bg-black opacity-20"></div>
-          <div className="relative flex flex-col items-center justify-center p-4 md:p-6 h-full">
+           <div className="relative flex flex-col items-center justify-center md:justify-start p-4 md:p-6 h-full md:pt-20"> 
             <div className="space-y-4 md:space-y-8 max-w-2xl text-center">
               {/* Madde 1 */}
               <div className="flex flex-col items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg cursor-pointer mt-4 md:mt-0">
