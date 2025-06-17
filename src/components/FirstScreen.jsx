@@ -33,7 +33,7 @@ function FirstScreen() {
      
       </div>
 
-      <div className="leading-24 text-6xl mt-5 text-amber-50 ml-15">
+      <div className="leading-16 text-5xl mt-5 text-amber-50 ml-15">
         Sessiz sokaklar <br />
         karanlık sırlar
         <br />
@@ -41,7 +41,7 @@ function FirstScreen() {
         iz süren MySteria dedektifleri
       </div>
       <div>
-        <p className="ml-15 text-amber-50 text-2xl mb-10">
+        <p className="ml-15 text-amber-50 text-2xl mb-6">
           Faili meçhul davaları kapatmak için geliyoruz...
         </p>
         <p className="ml-15 text-amber-50 text-2xl">
