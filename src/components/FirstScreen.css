@@ -101,6 +101,11 @@
     align-items: center;
     text-align: center;
   }
+  .mobile-center {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 
   .header-overlay {
     flex-direction: column;

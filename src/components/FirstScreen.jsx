@@ -33,7 +33,7 @@ function FirstScreen() {
      
       </div>
 
-      <div className="leading-16 text-5xl mt-5 text-amber-50 ml-15">
+      <div className=" leading-16 text-5xl mt-5 text-amber-50 ml-15 mobile-center">
         Sessiz sokaklar <br />
         karanlık sırlar
         <br />
