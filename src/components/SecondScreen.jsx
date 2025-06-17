@@ -81,12 +81,7 @@ function SecondScreen() {
                 </p>
               </div>
 
-              {/* Çağrı cümlesi */}
-              <div className="pt-2 md:pt-6">
-                <p className="text-xl italic font-bold tracking-wider">
-                  GERÇEK DEDEKTİF SİZ MİSİNİZ?
-                </p>
-              </div>
+             
             </div>
           </div>
         </div>
